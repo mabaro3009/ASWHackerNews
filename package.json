@@ -1,0 +1,8 @@
+{
+  "name": "demo",
+  "private": true,
+  "dependencies": {
+    "9": "0.0.1",
+    "cli-engine-command": "^9.0.7"
+  }
+}
