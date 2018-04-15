@@ -25,7 +25,8 @@ class PostsController < ApplicationController
   # POST /posts.json
   def create
     @post = Post.new(post_params)
-
+	@post.user_id = 1;
+	@post.votes = 0;
     respond_to do |format|
 	  if (!@post.text?) && (!@post.url?)
         format.html { redirect_to @post, notice: 'Either fill in URL or Text.' } 
@@ -47,7 +48,13 @@ class PostsController < ApplicationController
   # PATCH/PUT /posts/1.json
   def update
     respond_to do |format|
-      if @post.update(post_params)
+	if (!@post.text?) && (!@post.url?)
+        format.html { redirect_to @post, notice: 'Either fill in URL or Text.' } 
+        format.json { render json: @post.errors, status: :unprocessable_entity }
+	  elsif (@post.text?) && (@post.url?)
+        format.html { redirect_to @post, notice: 'Either fill in URL or Text.' } 
+        format.json { render json: @post.errors, status: :unprocessable_entity }
+      elsif @post.update(post_params)
         format.html { redirect_to @post, notice: 'Post was successfully updated.' }
         format.json { render :show, status: :ok, location: @post }
       else
@@ -70,6 +77,17 @@ class PostsController < ApplicationController
   
   def showError
   end
+  
+  #POST /posts/:id
+  #POST /posts/:id.json
+  def upvote
+	@post = Post.find(params[:id])
+	@post.votes = @post.votes + 1
+	respond_to do |format|
+		format.html { redirect_to @post, notice: 'Post was successfully upvoted.' }
+		format.json { render :show, status: :ok, location: @post }
+	end
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.
@@ -79,6 +97,6 @@ class PostsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def post_params
-      params.require(:post).permit(:title, :url, :text, :user_id)
+      params.require(:post).permit(:title, :url, :text)
     end
 end
