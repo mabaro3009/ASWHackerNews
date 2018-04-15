@@ -27,7 +27,13 @@ class PostsController < ApplicationController
     @post = Post.new(post_params)
 
     respond_to do |format|
-      if @post.save
+	  if (!@post.text?) && (!@post.url?)
+        format.html { redirect_to @post, notice: 'Either fill in URL or Text.' } 
+        format.json { render json: @post.errors, status: :unprocessable_entity }
+	  elsif (@post.text?) && (@post.url?)
+        format.html { redirect_to @post, notice: 'Either fill in URL or Text.' } 
+        format.json { render json: @post.errors, status: :unprocessable_entity }
+      elsif @post.save
         format.html { redirect_to @post, notice: 'Post was successfully created.' }
         format.json { render :show, status: :created, location: @post }
       else
@@ -60,6 +66,9 @@ class PostsController < ApplicationController
       format.json { head :no_content }
 	  
     end
+  end
+  
+  def showError
   end
 
   private
