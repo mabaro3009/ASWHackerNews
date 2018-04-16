@@ -24,7 +24,7 @@ class PostsController < ApplicationController
   # POST /posts
   # POST /posts.json
   def create
-    @post = Post.new(post_params)
+  @post = Post.new(post_params)
 	@post.user_id = 1;
 	@post.votes = 0;
     respond_to do |format|
@@ -47,6 +47,7 @@ class PostsController < ApplicationController
   # PATCH/PUT /posts/1
   # PATCH/PUT /posts/1.json
   def update
+    puts 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
     respond_to do |format|
 	if (!@post.text?) && (!@post.url?)
         format.html { redirect_to @post, notice: 'Either fill in URL or Text.' } 
@@ -67,7 +68,9 @@ class PostsController < ApplicationController
   # DELETE /posts/1
   # DELETE /posts/1.json
   def destroy
+    puts 'bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb'
     @post.destroy
+    puts 'asdfasdfhjasdfladsfhdslfkjhasdlkfjhsaldkjfhsalkjdfhasldjfkhalskj'
     respond_to do |format|
       format.html { redirect_to posts_url, notice: 'Post was successfully destroyed.' }
       format.json { head :no_content }
@@ -81,11 +84,19 @@ class PostsController < ApplicationController
   #POST /posts/:id
   #POST /posts/:id.json
   def upvote
+    puts 'ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc'
 	@post = Post.find(params[:id])
 	@post.votes = @post.votes + 1
+  puts @post.votes
+  puts 'ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd'
+
+
+  
 	respond_to do |format|
+  if @post.update(post_params)      
 		format.html { redirect_to @post, notice: 'Post was successfully upvoted.' }
 		format.json { render :show, status: :ok, location: @post }
+  end
 	end
   end
 
@@ -97,6 +108,6 @@ class PostsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def post_params
-      params.require(:post).permit(:title, :url, :text)
+      params.permit(:title, :url, :text)
     end
 end
