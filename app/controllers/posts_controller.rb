@@ -93,7 +93,7 @@ class PostsController < ApplicationController
 
   
 	respond_to do |format|
-  if @post.update(post_params)      
+  if @post.update(post_par2)      
 		format.html { redirect_to @post, notice: 'Post was successfully upvoted.' }
 		format.json { render :show, status: :ok, location: @post }
   end
@@ -108,6 +108,11 @@ class PostsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def post_params
-      params.permit(:title, :url, :text)
+      params.require(:post).permit(:title, :url, :text, :votes)
     end
+
+    def post_par2
+     params.permit(:title, :url, :text, :votes)
+    end
+
 end
