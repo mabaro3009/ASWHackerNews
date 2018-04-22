@@ -4,7 +4,8 @@ class PostsController < ApplicationController
   # GET /posts
   # GET /posts.json
   def index
-    @posts = Post.all
+    # @posts = Post.all
+	@posts = Post.order(sort_column_votes + " " + sort_direction)
   end
 
   # GET /posts/1
@@ -47,7 +48,6 @@ class PostsController < ApplicationController
   # PATCH/PUT /posts/1
   # PATCH/PUT /posts/1.json
   def update
-    puts 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
     respond_to do |format|
 	if (!@post.text?) && (!@post.url?)
         format.html { redirect_to @post, notice: 'Either fill in URL or Text.' } 
@@ -68,9 +68,7 @@ class PostsController < ApplicationController
   # DELETE /posts/1
   # DELETE /posts/1.json
   def destroy
-    puts 'bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb'
     @post.destroy
-    puts 'asdfasdfhjasdfladsfhdslfkjhasdlkfjhsaldkjfhsalkjdfhasldjfkhalskj'
     respond_to do |format|
       format.html { redirect_to posts_url, notice: 'Post was successfully destroyed.' }
       format.json { head :no_content }
@@ -84,11 +82,9 @@ class PostsController < ApplicationController
   #POST /posts/:id
   #POST /posts/:id.json
   def upvote
-    puts 'ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc'
 	@post = Post.find(params[:id])
 	@post.votes = @post.votes + 1
   puts @post.votes
-  puts 'ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd'
 
 
   
@@ -114,5 +110,13 @@ class PostsController < ApplicationController
     def post_par2
      params.permit(:title, :url, :text, :votes)
     end
+	
+	def sort_column_votes
+		Post.column_names.include?(params[:sort]) ? params[:sort] : "votes"
+	end
+	
+	def sort_direction
+		%w[asc desc].include?(params[:direction]) ? params[:direction] : "desc"
+	end
 
 end
