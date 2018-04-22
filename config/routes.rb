@@ -5,4 +5,5 @@ Rails.application.routes.draw do
   root 'posts#index'
   
   post "/posts/:id" => "posts#upvote"
+  get "/newest" => "posts#newest"
 end

@@ -4,8 +4,14 @@ class PostsController < ApplicationController
   # GET /posts
   # GET /posts.json
   def index
-    # @posts = Post.all
 	@posts = Post.order(sort_column_votes + " " + sort_direction)
+	@posts = @posts.tipo("url")
+  end
+  
+  # GET /posts/newest
+  # GET /posts.json
+  def newest
+    @posts = Post.order(:created_at).reverse_order.all
   end
 
   # GET /posts/1
@@ -28,6 +34,11 @@ class PostsController < ApplicationController
   @post = Post.new(post_params)
 	@post.user_id = 1;
 	@post.votes = 0;
+	if(@post.text?)
+			@post.tipo = "ask"
+		else
+			@post.tipo = "url"
+	end
     respond_to do |format|
 	  if (!@post.text?) && (!@post.url?)
         format.html { redirect_to @post, notice: 'Either fill in URL or Text.' } 
