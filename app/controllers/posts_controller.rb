@@ -13,6 +13,13 @@ class PostsController < ApplicationController
   def newest
     @posts = Post.order(:created_at).reverse_order.all
   end
+  
+  # GET /posts/ask
+  # GET /posts.json
+  def ask
+	@posts = Post.order(sort_column_votes + " " + sort_direction)
+	@posts = @posts.tipo("ask")
+  end
 
   # GET /posts/1
   # GET /posts/1.json

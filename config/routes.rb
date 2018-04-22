@@ -6,4 +6,5 @@ Rails.application.routes.draw do
   
   post "/posts/:id" => "posts#upvote"
   get "/newest" => "posts#newest"
+  get "/ask" => "posts#ask"
 end
