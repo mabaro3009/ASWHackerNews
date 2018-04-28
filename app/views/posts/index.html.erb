@@ -27,7 +27,12 @@
                     </td>
                     <td style="text-align:right;padding-right:4px;">
                       <span class="pagetop">
-                        <a href="auth/twitter">login</a>
+                        
+						<% if current_user %>
+						<p class="navbar-text navbar-right"> signed in as <%= current_user.name %></p>
+						<% else %>
+						<a href="auth/twitter">login</a>
+						<% end%>
                       </span>
                     </td>
                   </tbody>
