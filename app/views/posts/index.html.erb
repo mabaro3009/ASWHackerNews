@@ -70,7 +70,7 @@
                     <td class="subtext">
                       <span class="score"> <%= post.votes %> points </span> by
                       <a href="users/<%=post.user_id%>" class="hnuser"><%= post.user.name %></a>
-                   
+					  <span class="time"> <%= time_ago_in_words(post.created_at) %> </span> ago | 
                       <span class="comments">
                         <a href="posts/<%=post.id%>"><%= post.nComments %> comments</a>
                       </span>

@@ -17,9 +17,9 @@
                       <b class="hnname">
                         <a style="text-decoration: none;" href="/../posts">Hacker News</a>
                       </b>
-                        <a href=/../newest>news</a> |
+                        <a href=/../newest>new</a> |
                         <a href=/../thread>threads</a> |
-                        <a href="/../ask>ask</a> |
+                        <a href=/../ask>ask</a> |
                         <%= link_to 'Submit ', new_post_path %>
                       </span>
                     </td>
@@ -71,7 +71,7 @@
                     <td class="subtext">
                       <span class="score"> <%= @post.votes %> points </span> by
                       <a href="/../users/<%=@post.user_id%>" class="hnuser"><%= @post.user.name %></a>
-                   
+                      <span class="time"> <%= time_ago_in_words(@post.created_at) %> </span> ago | 
                       <span class="comments">
                         <a href="<%=@post.id%>"><%= @post.nComments %> comments</a>
                       </span>
@@ -85,11 +85,26 @@
 						<span class="textText"><%= @post.text %></span>
 						<% end %>
 					</td>
-						
-                  </tr>
+					</tr>
+					
+					
+					<tr>
+					<td colspan="1">
+                    </td>
+					<td class="formcomment">
+						<form method="post" action=<%= @post.id %>/comment>
+						<input type="hidden" name="post" value=<%= @post.id %> >
+						<textarea name="text" rows="6" cols="60"></textarea>
+						<br><br>
+						<input type="submit" value="add comment"></form>						
+					</td>
+					</tr>
+					
+				
+                  
                   <tr class="spacer" style="height:5px">
                   </tr>
-                  
+				  
                   <!-- Final de la new -->
 					</tbody>
 				</table>
