@@ -113,6 +113,19 @@ class PostsController < ApplicationController
   end
 	end
   end
+  
+  def addComment
+	@post = Post.find(params[:id])
+	@post.nComments = @post.nComments + 1
+	puts @post.nComments
+
+	respond_to do |format|
+		if @post.update(post_par3)      
+			format.html { redirect_to @post }
+			format.json { render :show, status: :ok, location: @post }
+		end
+	end
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.

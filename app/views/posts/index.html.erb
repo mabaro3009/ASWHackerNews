@@ -18,10 +18,8 @@
                         <a style="text-decoration: none;" href="news">Hacker News</a>
                       </b>
                         <a href="newest">new</a> |
-                        <a href="newcomments">comments</a> |
-                        <a href="show">show</a> |
+                        <a href="thread">threads</a> |
                         <a href="ask">ask</a> |
-                        <a href="jobs">jobs</a> |
                         <%= link_to 'Submit ', new_post_path %>
                       </span>
                     </td>
@@ -58,11 +56,11 @@
                       </center>
                     </td>
                     <td class="title">
-                      <a href="<%= post.url %>" class="storylink"><%= post.title %></a>
+                      <a href="http://<%= post.url %>" class="storylink"><%= post.title %></a>
                       <span class="sitebit comhead"> (
-                        <a href="from?site=threadreaderapp.com">
-                          <span class="sitestr">threadreaderapp.com</span>
-                        </a>)
+                       
+                          <span class="sitestr"><%= post.url %></span>
+                        )
                       </span>
                     </td>
                   </tr>
@@ -70,14 +68,12 @@
                     <td colspan="2">
                     </td>
                     <td class="subtext">
-                      <span class="score" id="score_16898827">291 points</span> by
-                      <a href="user?id=passenger" class="hnuser">passenger</a>
-                      <span class="age">
-                        <a href="item?id=16898827">8 hours ago</a>
+                      <span class="score"> <%= post.votes %> points </span> by
+                      <a href="users/<%=post.user_id%>" class="hnuser"><%= post.user.name %></a>
+                   
+                      <span class="comments">
+                        <a href="posts/<%=post.id%>"><%= post.nComments %> comments</a>
                       </span>
-                      <span id="unv_16898827"></span> |
-                      <a href="hide?id=16898827&amp;goto=news">hide</a> |
-                      <td><%= link_to '0 comments', post %></td>
                     </td>
                   </tr>
                   <tr class="spacer" style="height:5px">
