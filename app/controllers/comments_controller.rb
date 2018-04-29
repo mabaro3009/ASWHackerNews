@@ -30,7 +30,10 @@ class CommentsController < ApplicationController
 		@comment = @post.comments.create(params[:comment].permit(:text, :tipus))
 	else
 		@parent = Comment.find(params[:comment][:parent_id])
-		@comment = @parent.replies.create(params[:comment].permit(:text, :tipus, :parent_id))
+		#@comment = @parent.replies.create(params[:comment].permit(:text, :tipus, :parent_id))
+		@comment = Comment.new(comment_params)
+		@parent.replies << @comment
+		@comment.tipus = 'reply'
 		@comment.post_id = @parent.post.id
 	end
 	@comment.user_id = current_user.id
