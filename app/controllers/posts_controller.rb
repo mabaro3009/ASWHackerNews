@@ -24,6 +24,7 @@ class PostsController < ApplicationController
   # GET /posts/1
   # GET /posts/1.json
   def show
+	@comments = Comment.where(post_id: @post , tipus: 'comment').order("votes DESC")
   end
 
   # GET /posts/new
@@ -111,6 +112,19 @@ class PostsController < ApplicationController
 		format.html { redirect_to @post, notice: 'Post was successfully upvoted.' }
 		format.json { render :show, status: :ok, location: @post }
   end
+	end
+  end
+  
+  def addComment
+	@post = Post.find(params[:id])
+	@post.nComments = @post.nComments + 1
+	puts @post.nComments
+
+	respond_to do |format|
+		if @post.update(post_par3)      
+			format.html { redirect_to @post }
+			format.json { render :show, status: :ok, location: @post }
+		end
 	end
   end
 

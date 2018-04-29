@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+		<title>Login</title>
+		<link rel="shortcut icon" href="imgs/favicon.ico">
+
+		<link href="toastr.css" rel="stylesheet"/>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
+		<link rel="stylesheet" type="text/css" href="./css/style.css">
+		<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	  <script src="/socket.io/socket.io.js"></script>
+	  <script src="./functions.js"></script>
+		<script src="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.2/js/toastr.min.js"></script>
+	</head>
+	<body background="./imgs/background_intro.jpg">
+			<div class="container">
+			  <div class="row">
+		    	<div class="col-12 mt-4 text-center">
+							<img src="imgs/logo_leximots.jpg"  class="img-fluid" alt="Logo">
+							<p><h2 class="mb-5"> </h2></p>
+					</div>
+					<div class="col-md-4 text-center"></div>
+	        <div class="col-md-4 align-self-center">
+						<form action="/panel" method="post">
+							<input type="text" name="id" placeholder="Usuari" class="form-control" id ="login" >
+							<input type="password" name="pass" placeholder="Contrassenya" class="form-control">
+							<br>
+							<button class="btn btn-primary btn-lg btn-block">Login</button>
+						</form>
+					</div>
+					<div class="col-md-4 text-center"></div>
+		    </div>
+		 </div>
+			<% if ( login == '1' ) { %>
+
+		  			<script>
+						toastr.options = {
+						"closeButton": false,
+						"debug": false,
+						"newestOnTop": false,
+						"progressBar": true,
+						"positionClass": "toast-bottom-center",
+						"preventDuplicates": false,
+						"onclick": null,
+						"showDuration": "300",
+						"hideDuration": "1000",
+						"timeOut": "5000",
+						"extendedTimeOut": "1000",
+						"showEasing": "swing",
+						"hideEasing": "linear",
+						"showMethod": "fadeIn",
+						"hideMethod": "fadeOut"
+					}
+						 toastr.error('Contrasenya o/i usuari no valid')</script>
+					<% } %>
+	</body>
+</html>

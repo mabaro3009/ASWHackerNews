@@ -1,34 +1,120 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <strong>Title:</strong>
-  <%= @post.title %>
-</p>
-
-<p>
-  <strong>Url:</strong>
-  <%= @post.url %>
-</p>
-
-<p>
-  <strong>Text:</strong>
-  <%= @post.text %>
-</p>
-
-<p>
-  <strong>User:</strong>
-  <%= @post.user_id %>
-</p>
-
-<p>
-  <strong>Votes:</strong>
-  <%= @post.votes %>
-</p>
-
-<p>
-  <strong>Tipo:</strong>
-  <%= @post.tipo %>
-</p>
-
-<%= link_to 'Edit', edit_post_path(@post) %> |
-<%= link_to 'Back', posts_path %>
+<center>
+  <table>
+    <thead>
+      <table id="hnmain" border="0" cellpadding="0" cellspacing="0" width="85%" bgcolor="#f6f6ef">
+        <tbody>
+          <tr> <!--Cabezera -->
+            <td bgcolor="#ff6600">
+              <table border="0" cellpadding="0" cellspacing="0" width="100%" style="padding:2px">
+                <tbody>
+                  <td style="width:18px;padding-right:4px">
+                    <a href=/../posts>
+                      <img src="https://news.ycombinator.com/y18.gif" width="18" height="18" style="border:1px white solid;">
+                    </a>
+                  </td>
+                  <td style="line-height:12pt; height:10px;">
+                    <span class="pagetop">
+                      <b class="hnname">
+                        <a style="text-decoration: none;" href="/../posts">Hacker News</a>
+                      </b>
+                        <a href=/../newest>new</a> |
+                        <a href=/../thread>threads</a> |
+                        <a href=/../ask>ask</a> |
+                        <%= link_to 'Submit ', new_post_path %>
+                      </span>
+                    </td>
+                    <td style="text-align:right;padding-right:4px;">
+                      <span class="pagetop">
+                        
+						<% if current_user %>
+						<p class="navbar-text navbar-right"> signed in as <%= current_user.name %></p>
+						<% else %>
+						<a href="/../auth/twitter">login</a>
+						<% end%>
+                      </span>
+                    </td>
+                  </tbody>
+                </table>
+            </td>
+          </tr> <!--Final Cabezera-->
+		  <tr style="height:10px"></tr>
+          <tr> <!-- New -->
+            <td>
+				<table class="fatitem" border="0">
+					<tbody>
+						<tr class='athing' id='123123123'>
+							<td align="right" valign="top" class="votelinks">
+								<center>
+									<a id='up_16898827' href='vote?id=16898827&amp;how=up&amp;goto=news'>
+										<div class='votearrow' title='upvote'></div>
+									</a>
+								</center>
+							</td>
+							<td class="title">
+								<% if @post.tipo == 'url' %>
+								<a href="http://<%= @post.url %>" class="storylink"><%= @post.title %></a>
+								<span class="sitebit comhead"> (
+                       
+								<span class="sitestr"><%= @post.url %></span>
+									)
+								</span>
+								<% else %>
+								<span class="text Title"> Ask HN: </span>
+								<span class="textT"><%= @post.title %></span>
+								
+							    <% end%>
+							</td>
+						</tr>
+						<tr>
+                    <td colspan="1">
+                    </td>
+                    <td class="subtext">
+                      <span class="score"> <%= @post.votes %> points </span> by
+                      <a href="/../users/<%=@post.user_id%>" class="hnuser"><%= @post.user.name %></a>
+                      <span class="time"> <%= time_ago_in_words(@post.created_at) %> </span> ago | 
+                      <span class="comments">
+                        <a href="<%=@post.id%>"><%= @post.nComments %> comments</a>
+                      </span>
+                    </td>
+					</tr>
+					<tr>
+					<td colspan="1">
+                    </td>
+					<td class="text">
+						<% if @post.tipo == 'ask' %>
+						<span class="textText"><%= @post.text %></span>
+						<% end %>
+					</td>
+					</tr>
+					
+					
+					<tr>
+					<td colspan="1">
+                    </td>
+					<td class="formcomment">
+						<%= render 'comments/form' %>						
+					</td>
+					</tr>
+					<tr class="spacer" style="height:40px">
+                    </tr>
+					<tr>
+					<td colspan="1">
+                    </td>
+					<td class="comments">
+						<%= render 'comments/comment' %>						
+					</td>
+					</tr>
+					
+				
+                  
+                  <tr class="spacer" style="height:5px">
+                  </tr>
+				  
+                  <!-- Final de la new -->
+					</tbody>
+				</table>
+			</td>
+		  </tr>
+		</tbody>
+      </table>
+    </center>
