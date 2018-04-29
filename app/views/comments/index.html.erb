@@ -11,6 +11,7 @@
       <th>Parent</th>
 	  <th>Post</th>
 	  <th>Tipo</th>
+	  <th>Replies</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -24,6 +25,7 @@
         <td><%= comment.parent_id %></td>
 		<td><%= comment.post_id %></td>
 		<td><%= comment.tipus %></td>
+		<td><%= comment.replies %></td>
         <td><%= link_to 'Show', comment %></td>
         <td><%= link_to 'Edit', edit_comment_path(comment) %></td>
         <td><%= link_to 'Destroy', comment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
