@@ -21,6 +21,11 @@
                       <span class="text"><%=comment.text%></span>
                     </td>
 					</tr>
+					<tr>
+					<td colspan="1">
+					</td>
+					<td class="reply">
+					<%= link_to 'reply', reply_path(:parent => comment.id) %>
 					</tbody>
 					</table>
 					<br>

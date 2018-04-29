@@ -25,15 +25,40 @@ class CommentsController < ApplicationController
   # POST /comments
   # POST /comments.json
   def create
-    @post = Post.find(params[:post_id])
-    @comment = @post.comments.create(params[:comment].permit(:text))
+    if(params[:comment][:tipus] == 'comment')
+		@post = Post.find(params[:post_id])
+		@comment = @post.comments.create(params[:comment].permit(:text, :tipus))
+	else
+		@parent = Comment.find(params[:comment][:parent_id])
+		@comment = @parent.replies.create(params[:comment].permit(:text, :tipus, :parent_id))
+		@comment.post_id = @parent.post.id
+	end
 	@comment.user_id = current_user.id
-	@comment.post_id = @post.id
-	@comment.tipus = 'comment'
+	
 	@comment.save
 	
 	if @comment.save
-		redirect_to post_path(@post)
+		if @comment.tipus == 'comment'
+			redirect_to post_path(@post)
+		else 
+			redirect_to post_path(@parent.post)
+		end
+	else	
+		render 'new'
+	end
+  end
+  
+  def add_reply
+	@parent = Comment.find(params[:parent])
+	@comment = @parent.replies.add_reply(params[:comment].permit(:text))
+	@comment.user_id = current_user.id
+	@comment.post_id = @parent.post.id
+	@comment.tipus = 'reply'
+	@comment.parent_id = @parent.id
+	@comment.save
+	
+	if @comment.save
+		redirect_to post_path(@comment.post)
 	else	
 		render 'new'
 	end

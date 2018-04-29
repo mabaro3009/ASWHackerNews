@@ -1,0 +1,7 @@
+<%= form_for([Comment.find(params[:parent]), Comment.find(params[:parent]).replies.build]) do |f| %>
+  <%= f.text_area :text  %>
+  <%= f.hidden_field :tipus, :value => "reply" %>
+  <%= f.hidden_field :parent_id, :value => Comment.find(params[:parent]).id %>
+  <br><br>
+  <%= f.submit %>
+<% end %>

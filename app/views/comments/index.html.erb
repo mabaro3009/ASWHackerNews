@@ -9,6 +9,8 @@
       <th>Author</th>
       <th>Votes</th>
       <th>Parent</th>
+	  <th>Post</th>
+	  <th>Tipo</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -20,6 +22,8 @@
         <td><%= comment.user_id %></td>
         <td><%= comment.votes %></td>
         <td><%= comment.parent_id %></td>
+		<td><%= comment.post_id %></td>
+		<td><%= comment.tipus %></td>
         <td><%= link_to 'Show', comment %></td>
         <td><%= link_to 'Edit', edit_comment_path(comment) %></td>
         <td><%= link_to 'Destroy', comment, method: :delete, data: { confirm: 'Are you sure?' } %></td>

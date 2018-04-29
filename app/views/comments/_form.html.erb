@@ -1,5 +1,6 @@
 <%= form_for([@post, @post.comments.build]) do |f| %>
   <%= f.text_area :text  %>
+  <%= f.hidden_field :tipus, :value => "comment" %>
   <br><br>
   <%= f.submit %>
 <% end %>
