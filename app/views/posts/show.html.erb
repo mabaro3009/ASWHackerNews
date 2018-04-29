@@ -92,11 +92,7 @@
 					<td colspan="1">
                     </td>
 					<td class="formcomment">
-						<form method="post" action=<%= @post.id %>/comment>
-						<input type="hidden" name="post" value=<%= @post.id %> >
-						<textarea name="text" rows="6" cols="60"></textarea>
-						<br><br>
-						<input type="submit" value="add comment"></form>						
+						<%= render 'comments/form' %>						
 					</td>
 					</tr>
 					
