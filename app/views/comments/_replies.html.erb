@@ -11,8 +11,7 @@
 							</td>
 							<td class="uppertext" style="color: #808080; font-size: 12px">
 								<span class="user"> <%=reply.user.name%> </span>
-								<span class="time"> <%= time_ago_in_words(reply.created_at) %> </span> ago |
-								<span class="replies"> <%= reply.replies.count%> </span>
+								<span class="time"> <%= time_ago_in_words(reply.created_at) %> </span> ago
 							</td>
 						</tr>
 						<tr>
@@ -22,14 +21,15 @@
                       <span class="text"><%=reply.text%></span>
                     </td>
 					</tr>
-					<tr>
-					<td colspan="1">
-					</td>
-					<td class="reply">
-					<%= link_to 'reply', reply_path(:parent => reply.id) %>
-					</td>
-					</tr>
-					<tr>
+					<% if current_user %>
+						<tr>
+						<td colspan="1">
+						</td>
+						<td class="reply">
+							<%= link_to 'reply', reply_path(:parent => reply.id) %>
+						</td>
+						</tr>
+					<% end %>
 					<td colspan="1">
 					</td>
 					<td class="replies">
@@ -37,7 +37,7 @@
 							<%= render 'comments/replies', reply: reply %>
 						<% end %>
 					</td>
-					</tr>
+					
 					</tbody>
 					</table>
 					<br>

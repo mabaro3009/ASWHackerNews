@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   
-	get '/auth/:provider/callback', to: 'sessions#create'
+	
   resources :posts do
 	resources :comments
   end
@@ -15,4 +15,6 @@ Rails.application.routes.draw do
   get "/newest" => "posts#newest"
   get "/ask" => "posts#ask"
   get "/reply" => "comments#reply"
+  get '/auth/:provider/callback', to: 'sessions#create'
+  get '/logout/', to: 'sessions#logout'
 end

@@ -6,6 +6,7 @@ class PostsController < ApplicationController
   def index
 	@posts = Post.order(sort_column_votes + " " + sort_direction)
 	@posts = @posts.tipo("url")
+	@contador = 0
   end
   
   # GET /posts/newest

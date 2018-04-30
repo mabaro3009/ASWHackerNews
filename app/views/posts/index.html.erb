@@ -20,15 +20,19 @@
                       </b>
                         <a href="newest">new</a> |
                         <a href="thread">threads</a> |
-                        <a href="ask">ask</a> |
-                        <%= link_to 'Submit ', new_post_path %>
+                        <a href="ask">ask</a> 
+						<% if current_user %> 
+							|
+							<%= link_to 'Submit ', new_post_path %>
+						<% end %>
                       </span>
                                     </td>
                                     <td style="text-align:right;padding-right:4px;">
                                         <span class="pagetop">
 
 						<% if current_user %>
-						<p class="navbar-text navbar-right"> signed in as <%= current_user.name %></p>
+						<a class="navbar-text navbar-right"> signed in as <%= current_user.name %></a> | 
+						<a href="logout">logout</a>
 						<% else %>
 						<a href="auth/twitter">login</a>
 						<% end%>
@@ -50,7 +54,8 @@
                                         <!-- Una new -->
                                         <tr class='athing' id='16898827'>
                                             <td align="right" valign="top" class="title">
-                                                <span class="rank">1.</span>
+                                                <span class="rank"><%=@contador+=1%>.</span>
+							
                                             </td>
                                             <td valign="top" class="votelinks">
                                                 <center>
@@ -79,7 +84,7 @@
                                                 </a>
                                                 <span class="time"> <%= time_ago_in_words(post.created_at) %> </span> ago |
                                                 <span class="comments">
-                        <a href="posts/<%=post.id%>"><%= post.nComments %> comments</a>
+                        <a href="posts/<%=post.id%>"><%= post.comments.count %> comments</a>
                       </span>
                                             </td>
                                         </tr>
