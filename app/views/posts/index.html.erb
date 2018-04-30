@@ -20,8 +20,8 @@
                       </b>
                         <a href="newest">new</a> |
                         <a href="thread">threads</a> |
-                        <a href="ask">ask</a> 
-						<% if current_user %> 
+                        <a href="ask">ask</a>
+						<% if current_user %>
 							|
 							<%= link_to 'Submit ', new_post_path %>
 						<% end %>
@@ -31,10 +31,10 @@
                                         <span class="pagetop">
 
 						<% if current_user %>
-						<a class="navbar-text navbar-right"> signed in as <%= current_user.name %></a> | 
-						<a href="logout">logout</a>
+						      <a class="navbar-text navbar-right"> signed in as <%= current_user.name %></a> |
+						            <a href="logout">logout</a>
 						<% else %>
-						<a href="auth/twitter">login</a>
+						      <a href="auth/twitter">login</a>
 						<% end%>
                       </span>
                                     </td>
@@ -55,7 +55,7 @@
                                         <tr class='athing' id='16898827'>
                                             <td align="right" valign="top" class="title">
                                                 <span class="rank"><%=@contador+=1%>.</span>
-							
+
                                             </td>
                                             <td valign="top" class="votelinks">
                                                 <center>
