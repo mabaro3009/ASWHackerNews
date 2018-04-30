@@ -1,4 +1,4 @@
-<% @comments.each do |comment| %>
+
 	<table class="fatitem" border="0">
 					<tbody>
 						<tr class='athing' id='123123123'>
@@ -10,31 +10,35 @@
 								</center>
 							</td>
 							<td class="uppertext" style="color: #808080; font-size: 12px">
-								<span class="user"> <%=comment.user.name%> </span>
-								<span class="time"> <%= time_ago_in_words(comment.created_at) %> </span> ago |
-								<span class="replies"> <%= comment.replies.count%> </span>
+								<span class="user"> <%=reply.user.name%> </span>
+								<span class="time"> <%= time_ago_in_words(reply.created_at) %> </span> ago |
+								<span class="replies"> <%= reply.replies.count%> </span>
 							</td>
 						</tr>
 						<tr>
                     <td colspan="1">
                     </td>
                     <td class="subtext">
-                      <span class="text"><%=comment.text%></span>
+                      <span class="text"><%=reply.text%></span>
                     </td>
 					</tr>
 					<tr>
 					<td colspan="1">
 					</td>
 					<td class="reply">
-					<%= link_to 'reply', reply_path(:parent => comment.id) %>
+					<%= link_to 'reply', reply_path(:parent => reply.id) %>
 					</td>
 					</tr>
 					<tr>
+					<td colspan="1">
+					</td>
 					<td class="replies">
-						
+						<% reply.replies.each do |reply| %>
+							<%= render 'comments/replies', reply: reply %>
+						<% end %>
 					</td>
 					</tr>
 					</tbody>
 					</table>
 					<br>
-<% end %>
+
