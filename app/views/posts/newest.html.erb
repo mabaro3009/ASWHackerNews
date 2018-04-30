@@ -1,36 +1,102 @@
-<p id="notice"><%= notice %></p>
+<center>
+    <table>
+        <thead>
+            <table id="hnmain" border="0" cellpadding="0" cellspacing="0" width="85%" bgcolor="#f6f6ef">
+                <tbody>
+                    <tr>
+                        <!--Cabezera -->
+                        <td bgcolor="#ff6600">
+                            <table border="0" cellpadding="0" cellspacing="0" width="100%" style="padding:2px">
+                                <tbody>
+                                    <td style="width:18px;padding-right:4px">
+                                        <a href="/../posts">
+                      <img src="https://news.ycombinator.com/y18.gif" width="18" height="18" style="border:1px white solid;">
+                    </a>
+                                    </td>
+                                    <td style="line-height:12pt; height:10px;">
+                                        <span class="pagetop">
+                      <b class="hnname">
+                        <a style="text-decoration: none;" href="/../posts">Hacker News</a>
+                      </b>
+                        <a href="newest">new</a> |
+                        <a href="thread">threads</a> |
+                        <a href="ask">ask</a>
+						<% if current_user %>
+							|
+							<%= link_to 'Submit ', new_post_path %>
+						<% end %>
+                      </span>
+                                    </td>
+                                    <td style="text-align:right;padding-right:4px;">
+                                        <span class="pagetop">
 
-<h1>Posts</h1>
+						<% if current_user %>
+						      <a class="navbar-text navbar-right"> signed in as <%= current_user.name %></a> |
+						       <a href="logout">logout</a>
+						<% else %>
+						      <a href="auth/twitter">login</a>
+						<% end%>
+                      </span>
+                                    </td>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    <!--Final Cabezera-->
+                    <tr style="height:10px"></tr>
+                    <tr>
+                        <!-- News -->
+                        <td>
+                            <table border="0" cellpadding="0" cellspacing="0" class="itemlist">
+                                <tbody>
 
-<table>
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Url</th>
-      <th>Text</th>
-      <th>Votes</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+                                    <% @posts.each do |post| %>
+                                        <!-- Una new -->
+                                        <tr class='athing' id='16898827'>
+                                            <td align="right" valign="top" class="title">
+                                                <span class="rank"><%=@contador+=1%>.</span>
 
-  <tbody>
-    <% @posts.each do |post| %>
-      <tr>
-        <td><%= post.title %></td>
-        <td><%= post.url %></td>
-        <td><%= post.text %></td>
-        <td><%= post.votes %></td>
-        <td><%= link_to 'Show', post %></td>
-        <td><%= link_to 'Edit', edit_post_path(post) %></td>
-        <td><%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-		<td><%= link_to 'Upvote', post, method: :upvote %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+                                            </td>
+                                            <td valign="top" class="votelinks">
+                                                <center>
+                                                    <a id='up_16898827' href='vote?id=16898827&amp;how=up&amp;goto=news'>
+                                                        <div class='votearrow' title='upvote'></div>
+                                                    </a>
+                                                </center>
+                                            </td>
+                                            <td class="title">
+                                                <a href="http://<%= post.url %>" class="storylink">
+                                                    <%= post.title %>
+                                                </a>
+                                                <span class="sitebit comhead"> (
 
-<br>
-
-<%= link_to 'New Post', new_post_path %>
-<%= link_to 'Order by Votes', root_path %>
-<%= link_to 'ask', ask_path %>
+                          <span class="sitestr"><%= post.url %></span> )
+                                                </span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2">
+                                            </td>
+                                            <td class="subtext">
+                                                <span class="score"> <%= post.votes %> points </span> by
+                                                <a href="users/<%=post.user_id%>" class="hnuser">
+                                                    <%= post.user.name %>
+                                                </a>
+                                                <span class="time"> <%= time_ago_in_words(post.created_at) %> </span> ago |
+                                                <span class="comments">
+                        <a href="posts/<%=post.id%>"><%= post.comments.count %> comments</a>
+                      </span>
+                                            </td>
+                                        </tr>
+                                        <tr class="spacer" style="height:5px">
+                                        </tr>
+                                        <% end %>
+                                            <!-- Final de una new -->
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    <!-- Final News -->
+                </tbody>
+            </table>
+</center>

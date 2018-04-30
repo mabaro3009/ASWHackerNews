@@ -13,6 +13,7 @@ class PostsController < ApplicationController
   # GET /posts.json
   def newest
     @posts = Post.order(:created_at).reverse_order.all
+    @contador = 0
   end
 
   # GET /posts/ask
