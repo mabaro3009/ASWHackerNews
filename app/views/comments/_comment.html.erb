@@ -33,7 +33,9 @@
 					<td colspan="1">
 					</td>
 					<td class="replies">
-						<%= render 'comments/replies' %>
+						<% comment.replies.each do |reply| %>
+							<%= render 'comments/replies', reply: reply %>
+						<% end %>
 					</td>
 					</tr>
 					</tbody>
