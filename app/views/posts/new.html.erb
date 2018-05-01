@@ -1,5 +1,59 @@
-<h1>New Post</h1>
+<center>
+    <table id="hnmain" width="85%" cellspacing="0" cellpadding="0" border="0" bgcolor="#f6f6ef">
+        <tbody>
+            <tr>
+                <td bgcolor="#ff6600">
+                    <table style="padding:2px" width="100%" cellspacing="0" cellpadding="0" border="0">
+                    <tbody>
+                        <tr>
+                            <td style="width:18px;padding-right:4px">
+                              <a href="/../posts">
+                                <img src="https://news.ycombinator.com/y18.gif" style="border:1px #ffffff solid;" width="18" height="18">
+                              </a>
+                            </td>
+                            <td style="line-height:12pt; height:10px">
+                                <span class="pagetop"><b>Submit</b></span>
+                            </td>
+                        </tr>
+                    </tbody>
+                    </table>
+                </td>
+            </tr>
+            <tr style="height:10px"></tr>
+            <tr>
+                    <td> <!--<empieza el formulario>-->
+                      <%= form_for (@post) do |form| %>
 
-<%= render 'form', post: @post %>
+                              <p>
+                                <div class="field">
+                                  <%= form.label :title %>
+                                  <%= form.text_field :title, id: :post_title %>
+                                </div>
+                              </p>
+                              <p>
+                                <div class="field">
+                                  <%= form.label :url %>
+                                  <%= form.text_field :url, id: :post_url %>
+                                </div>
+                              </p>
+                              <p>or</p>
+                              <p>
+                                <div class="field">
+                                  <%= form.label :text %>
+                                  <%= form.text_field :text, id: :post_text %>
+                                </div>
+                              </p>
 
-<%= link_to 'Back', posts_path %>
+                              <p>
+                                <div class="actions">
+                                  <%= form.submit %>
+                                </div>
+                              </p>
+                      <% end %>
+
+                          <%= link_to 'Back', posts_path %>
+                    </td>
+                </tr>
+        </tbody>
+    </table>
+</center>

@@ -1,0 +1,46 @@
+<% @comments.each do |comment| %>
+	<table class="fatitem" border="0">
+					<tbody>
+						<tr class='athing' id='123123123'>
+							<td align="right" valign="top" class="votelinks">
+								<center>
+									<a id='up_16898827' href='vote?id=16898827&amp;how=up&amp;goto=news'>
+										<div class='votearrow' title='upvote'></div>
+									</a>
+								</center>
+							</td>
+							<td class="uppertext" style="color: #808080; font-size: 12px">
+								<span class="user"> <%=comment.user.name%> </span>
+								<span class="time"> <%= time_ago_in_words(comment.created_at) %> </span> ago 
+							</td>
+						</tr>
+						<tr>
+                    <td colspan="1">
+                    </td>
+                    <td class="subtext">
+                      <span class="text"><%=comment.text%></span>
+                    </td>
+					</tr>
+					<% if current_user %>
+					<tr>
+					<td colspan="1">
+					</td>
+					
+						<td class="reply">
+						<%= link_to 'reply', reply_path(:parent => comment.id) %>
+						</td>
+					
+					</tr>
+					<% end %>
+					<td colspan="1">
+					</td>
+					<td class="replies">
+						<% comment.replies.each do |reply| %>
+							<%= render 'comments/replies', reply: reply %>
+						<% end %>
+					</td>
+					
+					</tbody>
+					</table>
+					<br>
+<% end %>

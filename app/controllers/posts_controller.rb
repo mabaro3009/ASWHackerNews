@@ -5,15 +5,18 @@ class PostsController < ApplicationController
   # GET /posts.json
   def index
 	@posts = Post.order(sort_column_votes + " " + sort_direction)
+	#@posts = Post.order("upvotes_count DESC")
 	@posts = @posts.tipo("url")
+	@contador = 0
   end
-  
+
   # GET /posts/newest
   # GET /posts.json
   def newest
     @posts = Post.order(:created_at).reverse_order.all
+    @contador = 0
   end
-  
+
   # GET /posts/ask
   # GET /posts.json
   def ask
@@ -24,6 +27,7 @@ class PostsController < ApplicationController
   # GET /posts/1
   # GET /posts/1.json
   def show
+	@comments = Comment.where(post_id: @post , tipus: 'comment').order("votes DESC")
   end
 
   # GET /posts/new
@@ -48,10 +52,10 @@ class PostsController < ApplicationController
 	end
     respond_to do |format|
 	  if (!@post.text?) && (!@post.url?)
-        format.html { redirect_to @post, notice: 'Either fill in URL or Text.' } 
+        format.html { redirect_to @post, notice: 'Either fill in URL or Text.' }
         format.json { render json: @post.errors, status: :unprocessable_entity }
 	  elsif (@post.text?) && (@post.url?)
-        format.html { redirect_to @post, notice: 'Either fill in URL or Text.' } 
+        format.html { redirect_to @post, notice: 'Either fill in URL or Text.' }
         format.json { render json: @post.errors, status: :unprocessable_entity }
       elsif @post.save
         format.html { redirect_to @post, notice: 'Post was successfully created.' }
@@ -68,10 +72,10 @@ class PostsController < ApplicationController
   def update
     respond_to do |format|
 	if (!@post.text?) && (!@post.url?)
-        format.html { redirect_to @post, notice: 'Either fill in URL or Text.' } 
+        format.html { redirect_to @post, notice: 'Either fill in URL or Text.' }
         format.json { render json: @post.errors, status: :unprocessable_entity }
 	  elsif (@post.text?) && (@post.url?)
-        format.html { redirect_to @post, notice: 'Either fill in URL or Text.' } 
+        format.html { redirect_to @post, notice: 'Either fill in URL or Text.' }
         format.json { render json: @post.errors, status: :unprocessable_entity }
       elsif @post.update(post_params)
         format.html { redirect_to @post, notice: 'Post was successfully updated.' }
@@ -90,13 +94,13 @@ class PostsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to posts_url, notice: 'Post was successfully destroyed.' }
       format.json { head :no_content }
-	  
+
     end
   end
-  
+
   def showError
   end
-  
+
   #POST /posts/:id
   #POST /posts/:id.json
   def upvote
@@ -105,13 +109,26 @@ class PostsController < ApplicationController
   puts @post.votes
 
 
-  
+
 	respond_to do |format|
-  if @post.update(post_par2)      
+  if @post.update(post_par2)
 		format.html { redirect_to @post, notice: 'Post was successfully upvoted.' }
 		format.json { render :show, status: :ok, location: @post }
   end
 	end
+  end
+
+  def addComment
+  	@post = Post.find(params[:id])
+  	@post.nComments = @post.nComments + 1
+  	puts @post.nComments
+
+  	respond_to do |format|
+  		if @post.update(post_par3)
+  			format.html { redirect_to @post }
+  			format.json { render :show, status: :ok, location: @post }
+  		end
+  	end
   end
 
   private
@@ -128,11 +145,11 @@ class PostsController < ApplicationController
     def post_par2
      params.permit(:title, :url, :text, :votes)
     end
-	
+
 	def sort_column_votes
-		Post.column_names.include?(params[:sort]) ? params[:sort] : "votes"
+		Post.column_names.include?(params[:sort]) ? params[:sort] : "upvotes_count"
 	end
-	
+
 	def sort_direction
 		%w[asc desc].include?(params[:direction]) ? params[:direction] : "desc"
 	end
