@@ -78,6 +78,14 @@
                                             <td colspan="2">
                                             </td>
                                             <td class="subtext">
+												<%if post.upvotes.users.user_id.include? current_user_id%>
+													<span class="unvote"> Unvote </span>
+												<% else %>
+													<span class="unvote"> Upvote </span>
+												<% end %>
+									
+
+				
                                                 <span class="score"> <%= post.votes %> points </span> by
                                                 <a href="users/<%=post.user_id%>" class="hnuser">
                                                     <%= post.user.name %>

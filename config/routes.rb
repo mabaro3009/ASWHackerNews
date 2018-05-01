@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   
 	
+  resources :upvotes
   resources :posts do
 	resources :comments
   end
