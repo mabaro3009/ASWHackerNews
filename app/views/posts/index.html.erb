@@ -78,6 +78,7 @@
                                             <td colspan="2">
                                             </td>
                                             <td class="subtext">
+                      <!--votaciones-->
 											<% if current_user %>
 													<%if post.upvotes.include? current_user.upvotes.find {|u| u.post_id == post.id}%>
 														  <%= link_to 'Unvote'.html_safe, {:controller => "upvotes",
@@ -95,6 +96,7 @@
 
 												  <% end %>
 												<% end %>
+                        <!--fin votaciones-->
                                                 <span class="score"> <%= post.upvotes.count %> points </span> by
                                                 <a href="users/<%=post.user_id%>" class="hnuser">
                                                     <%= post.user.name %>
