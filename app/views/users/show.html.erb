@@ -39,18 +39,67 @@
                    <span class="pagetop">
                      <a id="me" href="user?id=floxis">floxis</a>                (1) |
                 <a id="logout" href="logout?auth=52986813b977729e4e0a49301265b8f0e64d4de7&amp;goto=user%3Fid%3Danigbrowl">logout</a>                          </span></td>
-              </tr></tbody></table></td></tr>
-<tr style="height:10px"></tr><tr><td><table border="0"><tbody><tr class="athing"><td valign="top">user:</td><td timestamp="1240107667"><a href="user?id=anigbrowl" class="hnuser">anigbrowl</a></td></tr>
-    <tr><td valign="top">created:</td><td><a href="front?day=2009-04-19&amp;birth=anigbrowl">April 19, 2009</a></td></tr>
-    <tr><td valign="top">karma:</td><td>
-              53504          </td></tr>
-    <tr><td valign="top">about:</td><td>
-              Fully Automated Luxury Gay Space Communism<p>Send email via gmail</p><p>Send bitcoin via 1G8GmiiekNqt2YFqt5K2boWCxwR5L4dF5W          </p></td></tr>
-              <tr><td></td><td><a href="submitted?id=anigbrowl"><u>submissions</u></a></td></tr><tr><td></td><td><a href="threads?id=anigbrowl"><u>comments</u></a></td></tr>
-      <tr><td></td><td>
-              <a href="favorites?id=anigbrowl"><u>favorites</u></a>
-          </td></tr>
-  </tbody></table>
-<br><br>
-</td></tr>
-      </tbody></table></center><script type="text/javascript" src="hn.js?fRHmUKE4r1EcSpKOabzI"></script>
+              </tr>
+            </tbody>
+          </table>
+        </td>
+      </tr>
+      <tr style="height:10px">
+      </tr>
+      <tr>
+        <td>
+          <table border="0">
+            <tbody>
+              <tr class="athing">
+                <td valign="top">user:</td>
+                <td timestamp="1240107667">
+                  <a href="<%= @user.uid %>" class="hnuser"><%= @user.name %></a>
+                </td>
+              </tr>
+              <tr>
+                <td valign="top">created:</td>
+                <td><a href="front?day=2009-04-19&amp;birth=anigbrowl"><%= @user.created_at %></a></td>
+              </tr>
+              <tr>
+                <td valign="top">karma:</td>
+                <td>53504</td>
+              </tr>
+              <tr>
+                <td valign="top">about:</td>
+                <td>Fully Automated Luxury Gay Space Communism<p>Send email via gmail</p><p>Send bitcoin via 1G8GmiiekNqt2YFqt5K2boWCxwR5L4dF5W</p></td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>
+                  <a href="submitted?id=anigbrowl">
+                    <u>submissions</u>
+                  </a>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                </td>
+                <td>
+                  <a href="threads?id=anigbrowl">
+                    <u>comments</u>
+                  </a>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                </td>
+                <td>
+                  <a href="favorites?id=anigbrowl">
+                    <u>favorites</u>
+                  </a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <br>
+          <br>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</center>
