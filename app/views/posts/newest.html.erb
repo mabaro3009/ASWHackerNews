@@ -68,10 +68,12 @@
                                                 <a href="http://<%= post.url %>" class="storylink">
                                                     <%= post.title %>
                                                 </a>
+												<% if post.tipo == 'url' %>
                                                 <span class="sitebit comhead"> (
 
-                          <span class="sitestr"><%= post.url %></span> )
+												<span class="sitestr"><%= post.url %></span> )
                                                 </span>
+												<% end %>
                                             </td>
                                         </tr>
                                         <tr>
