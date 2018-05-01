@@ -1,5 +1,5 @@
 class UpvotesController < ApplicationController
-  before_action :set_upvote, only: [:show, :edit, :update, :destroy]
+  #before_action :set_upvote, only: [:show, :edit, :update, :destroy]
 
   # GET /upvotes
   # GET /upvotes.json
@@ -25,10 +25,11 @@ class UpvotesController < ApplicationController
   # POST /upvotes.json
   def create
     @upvote = Upvote.new(upvote_params)
+	@upvote.user_id = current_user.id
 
     respond_to do |format|
       if @upvote.save
-        format.html { redirect_to @upvote, notice: 'Upvote was successfully created.' }
+        format.html { redirect_to root_path }
         format.json { render :show, status: :created, location: @upvote }
       else
         format.html { render :new }
@@ -54,9 +55,19 @@ class UpvotesController < ApplicationController
   # DELETE /upvotes/1
   # DELETE /upvotes/1.json
   def destroy
+	@upvote = Upvote.find(params[:upvote])
     @upvote.destroy
     respond_to do |format|
-      format.html { redirect_to upvotes_url, notice: 'Upvote was successfully destroyed.' }
+      format.html { redirect_to root_path }
+      format.json { head :no_content }
+    end
+  end
+  
+  def delete_vote
+	@upvote = Upvote.find(params[:upvote])
+    @upvote.destroy
+    respond_to do |format|
+      format.html { redirect_to root_path }
       format.json { head :no_content }
     end
   end

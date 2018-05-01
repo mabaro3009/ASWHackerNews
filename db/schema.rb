@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180501132515) do
+ActiveRecord::Schema.define(version: 20180501152904) do
 
   create_table "comments", force: :cascade do |t|
     t.string "text"
@@ -33,6 +33,7 @@ ActiveRecord::Schema.define(version: 20180501132515) do
     t.string "tipo"
     t.integer "votes"
     t.integer "nComments"
+    t.integer "upvotes_count"
   end
 
   create_table "upvotes", force: :cascade do |t|

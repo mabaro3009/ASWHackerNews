@@ -4,7 +4,8 @@ class PostsController < ApplicationController
   # GET /posts
   # GET /posts.json
   def index
-	@posts = Post.order(sort_column_votes + " " + sort_direction)
+	#@posts = Post.order(sort_column_votes + " " + sort_direction)
+	@posts = Post.order("upvotes_count DESC")
 	@posts = @posts.tipo("url")
 	@contador = 0
   end

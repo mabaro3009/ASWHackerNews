@@ -78,15 +78,31 @@
                                             <td colspan="2">
                                             </td>
                                             <td class="subtext">
-												<%if post.upvotes.users.user_id.include? current_user_id%>
-													<span class="unvote"> Unvote </span>
+											<% if current_user %>
+												
+													<%if post.upvotes.include? current_user.upvotes.find {|u| u.post_id == post.id}%>
+														
+														<%= link_to 'Unvote'.html_safe, {:controller => "upvotes",
+                                                                               :action => "destroy",
+                                                                               :upvote => (current_user.upvotes.find {|u| u.post_id == post.id}).id
+                                                                                   }, :method => "delete" 
+                                                                                %>
+														
 												<% else %>
-													<span class="unvote"> Upvote </span>
+													
+													<%= link_to 'Upvote'.html_safe, {:controller => "upvotes",
+                                                                               :action => "create",
+                                                                               :upvote => {
+                                                                                   :post_id => post.id 
+                                                                               }},
+												:method => "post" %>
+												
+												<% end %>
 												<% end %>
 									
 
 				
-                                                <span class="score"> <%= post.votes %> points </span> by
+                                                <span class="score"> <%= post.upvotes.count %> points </span> by
                                                 <a href="users/<%=post.user_id%>" class="hnuser">
                                                     <%= post.user.name %>
                                                 </a>
