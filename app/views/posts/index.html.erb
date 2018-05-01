@@ -31,7 +31,7 @@
                                         <span class="pagetop">
 
 						<% if current_user %>
-						      <a class="navbar-text navbar-right"> signed in as <%= current_user.name %></a> |
+						      <a class="navbar-text navbar-right"> <%= current_user.name %></a> |
 						       <a href="logout">logout</a>
 						<% else %>
 						      <a href="auth/twitter">login</a>
