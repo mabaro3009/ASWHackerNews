@@ -24,7 +24,7 @@ class UpvotesController < ApplicationController
   # POST /upvotes
   # POST /upvotes.json
   def create
-    @upvote = Upvote.new(upvote_params)
+  @upvote = Upvote.new(upvote_params)
 	@upvote.user_id = current_user.id
 
     respond_to do |format|
@@ -62,7 +62,7 @@ class UpvotesController < ApplicationController
       format.json { head :no_content }
     end
   end
-  
+
   def delete_vote
 	@upvote = Upvote.find(params[:upvote])
     @upvote.destroy
@@ -71,7 +71,7 @@ class UpvotesController < ApplicationController
       format.json { head :no_content }
     end
   end
-  
+
 
   private
     # Use callbacks to share common setup or constraints between actions.
