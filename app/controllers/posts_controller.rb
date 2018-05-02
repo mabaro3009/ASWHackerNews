@@ -22,6 +22,7 @@ class PostsController < ApplicationController
   def ask
 	@posts = Post.order(sort_column_votes + " " + sort_direction)
 	@posts = @posts.tipo("ask")
+  @contador = 0
   end
 
   # GET /posts/1
