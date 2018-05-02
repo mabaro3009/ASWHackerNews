@@ -73,7 +73,26 @@
                     <td colspan="1">
                     </td>
                     <td class="subtext">
-                      <span class="score"> <%= @post.votes %> points </span> by
+					<!--votaciones-->
+											<% if current_user %>
+													<%if @post.upvotes.include? current_user.upvotes.find {|u| u.post_id == @post.id}%>
+														  <%= link_to 'Unvote'.html_safe, {:controller => "upvotes",
+                                                                               :action => "destroy",
+                                                                               :upvote => (current_user.upvotes.find {|u| u.post_id == @post.id}).id
+                                                                                   }, :method => "delete" %>
+
+												  <% else %>
+
+													   <%= link_to 'Upvote'.html_safe, {:controller => "upvotes",
+                                                                               :action => "create",
+                                                                               :upvote => {
+                                                                               :post_id => @post.id
+                                                                               }},:method => "post" %>
+
+												  <% end %>
+												<% end %>
+                        <!--fin votaciones-->
+                      <span class="score"> <%= @post.upvotes.count %> points </span> by
                       <a href="/../users/<%=@post.user_id%>" class="hnuser"><%= @post.user.name %></a>
                       <span class="time"> <%= time_ago_in_words(@post.created_at) %> </span> ago | 
                       <span class="comments">

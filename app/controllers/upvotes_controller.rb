@@ -29,7 +29,11 @@ class UpvotesController < ApplicationController
 
     respond_to do |format|
       if @upvote.save
-        format.html { redirect_to root_path }
+		if @upvote.post_id?
+			format.html { redirect_to @upvote.post }
+		else
+			format.html { redirect_to @upvote.comment.post }
+		end
         format.json { render :show, status: :created, location: @upvote }
       else
         format.html { render :new }
@@ -58,7 +62,11 @@ class UpvotesController < ApplicationController
 	@upvote = Upvote.find(params[:upvote])
     @upvote.destroy
     respond_to do |format|
-      format.html { redirect_to root_path }
+      if @upvote.post_id?
+			format.html { redirect_to @upvote.post }
+		else
+			format.html { redirect_to @upvote.comment.post }
+		end
       format.json { head :no_content }
     end
   end
@@ -81,6 +89,6 @@ class UpvotesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def upvote_params
-      params.require(:upvote).permit(:user_id, :post_id)
+      params.require(:upvote).permit(:user_id, :post_id, :comment_id)
     end
 end
