@@ -14,9 +14,9 @@
                           <b class="hnname">
                             <a style="text-decoration: none;" href="/../posts">Hacker News</a
                           </b>
-                          <a href="newest">new</a> |
-                          <a href="thread">threads</a> |
-                          <a href="ask">ask</a>
+                          <a href="/newest">new</a> |
+                          <a href="/thread">threads</a> |
+                          <a href="/ask">ask</a>
                           <% if current_user %>
                           |
                           <%= link_to 'Submit ', new_post_path %>
@@ -27,9 +27,9 @@
                         <span class="pagetop">
                           <% if current_user %>
                           <a class="navbar-text navbar-right" href="/users/<%= current_user.id %>/edit"> <%= current_user.name %></a> |
-                          <a href="logout">logout</a>
+                          <a href="/logout">logout</a>
                           <% else %>
-                          <a href="auth/twitter">login</a>
+                          <a href="/auth/twitter">login</a>
                           <% end%>
                         </span>
                     </td>
@@ -47,12 +47,12 @@
               <tr class="athing">
                 <td valign="top">user:</td>
                 <td timestamp="1240107667">
-                  <a href="<%= @user.uid %>" class="hnuser"><%= @user.name %></a>
+                  <a href="<%= @user.id %>" class="hnuser"><%= @user.name %></a>
                 </td>
               </tr>
               <tr>
                 <td valign="top">created:</td>
-                <td><a href="front?day=2009-04-19&amp;birth=anigbrowl"><%= @user.created_at %></a></td>
+                <td><a><%= @user.created_at %></a></td>
               </tr>
               <tr>
                 <td valign="top">karma:</td>
@@ -60,7 +60,7 @@
               </tr>
               <tr>
                 <td valign="top">about:</td>
-                <td><%= @user.about %></p></td>
+                <td><%= @user.about %></td>
               </tr>
 <!--
               <tr>
