@@ -12,6 +12,8 @@ class UpvotesController < ApplicationController
   def show
   end
 
+  
+
   # GET /upvotes/new
   def new
     @upvote = Upvote.new
