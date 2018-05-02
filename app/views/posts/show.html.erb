@@ -98,6 +98,9 @@
                       <span class="comments">
                         <a href="<%=@post.id%>"><%= @post.comments.count %> comments</a>
                       </span>
+					  <% if current_user and @post.user.id == current_user.id %>
+											| <%= link_to 'Delete', @post, method: :delete, data: { confirm: 'Are you sure?' } %>
+											<% end %>
                     </td>
 					</tr>
 					<tr>
