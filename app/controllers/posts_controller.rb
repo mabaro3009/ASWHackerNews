@@ -44,7 +44,7 @@ class PostsController < ApplicationController
   # POST /posts.json
   def create
   @post = Post.new(post_params)
-	@post.user_id = 1;
+	@post.user_id = current_user.id;
 	@post.votes = 0;
 	if(@post.text?)
 			@post.tipo = "ask"
