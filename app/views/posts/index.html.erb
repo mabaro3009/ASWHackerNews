@@ -31,7 +31,7 @@
                                         <span class="pagetop">
 
 						<% if current_user %>
-						      <a class="navbar-text navbar-right"> <%= current_user.name %></a> |
+						      <a class="navbar-text navbar-right" href="/users/<%= current_user.id %>/edit"> <%= current_user.name %></a> |
 						       <a href="logout">logout</a>
 						<% else %>
 						      <a href="auth/twitter">login</a>
@@ -104,7 +104,7 @@
                                                 <span class="time"> <%= time_ago_in_words(post.created_at) %> </span> ago |
                                                 <span class="comments">
                         <a href="posts/<%=post.id%>"><%= post.comments.count %> comments</a>
-                      </span>  
+                      </span>
 											<% if current_user and post.user.id == current_user.id %>
 											| <%= link_to 'Delete', post, method: :delete, data: { confirm: 'Are you sure?' } %>
 											<% end %>
