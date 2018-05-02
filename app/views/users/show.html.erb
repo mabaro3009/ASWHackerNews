@@ -14,38 +14,44 @@
   <table id="hnmain" width="85%" cellspacing="0" cellpadding="0" border="0" bgcolor="#f6f6ef">
     <tbody>
       <tr>
+        <!--Cabezera -->
         <td bgcolor="#ff6600">
-          <table style="padding:2px" width="100%" cellspacing="0" cellpadding="0" border="0">
-            <tbody>
-              <tr>
-                <td style="width:18px;padding-right:4px">
-                  <a href="https://news.ycombinator.com">
-                    <img src="y18.gif" style="border:1px white solid;" width="18" height="18">
-                  </a>
-                </td>
-                <td style="line-height:12pt; height:10px;">
-                  <span class="pagetop"><b class="hnname">
-                    <a href="news">Hacker News</a></b>
-                    <a href="newest">new</a> |
-                    <a href="threads?id=floxis">threads</a> |
-                    <a href="newcomments">comments</a> |
-                    <a href="show">show</a> |
-                    <a href="ask">ask</a> |
-                    <a href="jobs">jobs</a>
-                    | <a href="submit">submit</a>
-                   </span>
-                 </td>
-                 <td style="text-align:right;padding-right:4px;">
-                   <span class="pagetop">
-                     <a id="me" href="user?id=floxis">floxis</a>                (1) |
-                <a id="logout" href="logout?auth=52986813b977729e4e0a49301265b8f0e64d4de7&amp;goto=user%3Fid%3Danigbrowl">logout</a>                          </span></td>
-              </tr>
-            </tbody>
-          </table>
+            <table border="0" cellpadding="0" cellspacing="0" width="100%" style="padding:2px">
+                <tbody>
+                    <td style="width:18px;padding-right:4px">
+                        <a href="/../posts"><img src="https://news.ycombinator.com/y18.gif" width="18" height="18" style="border:1px white solid;"></a>
+                    </td>
+                    <td style="line-height:12pt; height:10px;">
+                        <span class="pagetop">
+                          <b class="hnname">
+                            <a style="text-decoration: none;" href="/../posts">Hacker News</a
+                          </b>
+                          <a href="newest">new</a> |
+                          <a href="thread">threads</a> |
+                          <a href="ask">ask</a>
+                          <% if current_user %>
+                          |
+                          <%= link_to 'Submit ', new_post_path %>
+                          <% end %>
+                        </span>
+                    </td>
+                    <td style="text-align:right;padding-right:4px;">
+                        <span class="pagetop">
+                          <% if current_user %>
+                          <a class="navbar-text navbar-right" href="/users/<%= current_user.id %>/edit"> <%= current_user.name %></a> |
+                          <a href="logout">logout</a>
+                          <% else %>
+                          <a href="auth/twitter">login</a>
+                          <% end%>
+                        </span>
+                    </td>
+                </tbody>
+            </table>
         </td>
-      </tr>
-      <tr style="height:10px">
-      </tr>
+    </tr>
+    <!--Final Cabezera-->
+    <tr style="height:10px"></tr>
+    <tr>
       <tr>
         <td>
           <table border="0">
