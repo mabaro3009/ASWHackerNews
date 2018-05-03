@@ -53,11 +53,11 @@ class PostsController < ApplicationController
 	end
     respond_to do |format|
 	  if (!@post.text?) && (!@post.url?)
-        format.html { redirect_back(fallback_location: root_path), notice: 'Either fill in URL or Text.' }
-        #format.json { render json: @post.errors, status: :unprocessable_entity }
+        format.html { redirect_to @post, notice: 'Either fill in URL or Text.' }
+        format.json { render json: @post.errors, status: :unprocessable_entity }
 	  elsif (@post.text?) && (@post.url?)
-        format.html { redirect_back(fallback_location: root_path), notice: 'Either fill in URL or Text.' }
-        #format.json { render json: @post.errors, status: :unprocessable_entity }
+        format.html { redirect_to @post, notice: 'Either fill in URL or Text.' }
+        format.json { render json: @post.errors, status: :unprocessable_entity }
       elsif @post.save
         format.html { redirect_to newest_path, notice: 'Post was successfully created.' }
         format.json { render :show, status: :created, location: @post }
