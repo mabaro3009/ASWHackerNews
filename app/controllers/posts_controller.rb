@@ -53,10 +53,10 @@ class PostsController < ApplicationController
 	end
     respond_to do |format|
 	  if (!@post.text?) && (!@post.url?)
-      flash[:danger] = "Tienes q elegir un tipo"
-      render :new
+        format.html { render :new}
+        format.json { render json: @post.errors, status: :unprocessable_entity }
 	  elsif (@post.text?) && (@post.url?)
-        format.html { render :new, notice: 'Either fill in URL or Text.' }
+        format.html { render :new }
         format.json { render json: @post.errors, status: :unprocessable_entity }
       elsif @post.save
         format.html { redirect_to newest_path, notice: 'Post was successfully created.' }
