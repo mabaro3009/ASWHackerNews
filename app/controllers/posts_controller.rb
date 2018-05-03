@@ -52,7 +52,7 @@ class PostsController < ApplicationController
 	end
     respond_to do |format|
 	  if (!@post.text?) && (!@post.url?)
-        format.html { redirect_to @post, notice: 'Either fill in URL or Text.' }
+        format.html { redirect_to newest_path, notice: 'Either fill in URL or Text.' }
         format.json { render json: @post.errors, status: :unprocessable_entity }
 	  elsif (@post.text?) && (@post.url?)
         format.html { redirect_to @post, notice: 'Either fill in URL or Text.' }
