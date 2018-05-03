@@ -53,7 +53,9 @@ class PostsController < ApplicationController
 	end
     respond_to do |format|
 	  if (!@post.text?) && (!@post.url?)
-        render :new
+        format.html { render :new, notice: 'Either fill in URL or Text.' }
+        flash[:danger] = "Please log in."
+        format.json { render json: @post.errors, status: :unprocessable_entity }
 	  elsif (@post.text?) && (@post.url?)
         format.html { render :new, notice: 'Either fill in URL or Text.' }
         format.json { render json: @post.errors, status: :unprocessable_entity }
