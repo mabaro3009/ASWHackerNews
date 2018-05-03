@@ -5,6 +5,7 @@ class PostsController < ApplicationController
   # GET /posts.json
   def index
 	@posts = Post.order(sort_column_votes + " " + sort_direction)
+
 	@posts = @posts.tipo("url")
 	@contador = 0
   end
@@ -52,13 +53,13 @@ class PostsController < ApplicationController
 	end
     respond_to do |format|
 	  if (!@post.text?) && (!@post.url?)
-        format.html { redirect_to newest_path, notice: 'Either fill in URL or Text.' }
+        format.html { redirect_to @post, notice: 'Either fill in URL or Text.' }
         format.json { render json: @post.errors, status: :unprocessable_entity }
 	  elsif (@post.text?) && (@post.url?)
         format.html { redirect_to @post, notice: 'Either fill in URL or Text.' }
         format.json { render json: @post.errors, status: :unprocessable_entity }
       elsif @post.save
-        format.html { redirect_to @post, notice: 'Post was successfully created.' }
+        format.html { redirect_to newest_path, notice: 'Post was successfully created.' }
         format.json { render :show, status: :created, location: @post }
       else
         format.html { render :new }
