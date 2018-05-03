@@ -56,19 +56,21 @@ class PostsController < ApplicationController
     respond_to do |format|
 	  if (!@post.text?) && (!@post.url?)
         #flash[:alert] = "Error creating new post!"
-        #render :new
+        render :new
 
-        format.html { render :new}
-        format.json { render json: @post.errors, status: :unprocessable_entity }
+        #format.html { render :new}
+        #format.json { render json: @post.errors, status: :unprocessable_entity }
 	  elsif (@post.text?) && (@post.url?)
-        format.html { render :new }
-        format.json { render json: @post.errors, status: :unprocessable_entity }
+        render :new
+        #format.html { render :new }
+        #format.json { render json: @post.errors, status: :unprocessable_entity }
       elsif @post.save
         format.html { redirect_to newest_path, notice: 'Post was successfully created.' }
         format.json { render :show, status: :created, location: @post }
       else
-        format.html { render :new }
-        format.json { render json: @post.errors, status: :unprocessable_entity }
+        render :new
+        #format.html { render :new }
+        #format.json { render json: @post.errors, status: :unprocessable_entity }
       end
     end
   end
