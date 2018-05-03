@@ -51,7 +51,7 @@ class PostsController < ApplicationController
 		else
 			@post.tipo = "url"
 	end
-    respond_to do |format|
+    #respond_to do |format|
 	  if (!@post.text?) && (!@post.url?)
         flash[:alert] = "Error creating new post!"
         render :new
