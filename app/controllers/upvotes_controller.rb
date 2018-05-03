@@ -12,7 +12,7 @@ class UpvotesController < ApplicationController
   def show
   end
 
-  
+
 
   # GET /upvotes/new
   def new
@@ -32,7 +32,7 @@ class UpvotesController < ApplicationController
     respond_to do |format|
       if @upvote.save
 		if @upvote.post_id?
-			format.html { redirect_to @upvote.post }
+			format.html { redirect_to :back }
 		else
 			format.html { redirect_to @upvote.comment.post }
 		end
@@ -65,7 +65,7 @@ class UpvotesController < ApplicationController
     @upvote.destroy
     respond_to do |format|
       if @upvote.post_id?
-			format.html { redirect_to @upvote.post }
+			format.html { redirect_to :back }
 		else
 			format.html { redirect_to @upvote.comment.post }
 		end
