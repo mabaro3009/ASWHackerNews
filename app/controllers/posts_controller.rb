@@ -53,8 +53,7 @@ class PostsController < ApplicationController
 	end
     respond_to do |format|
 	  if (!@post.text?) && (!@post.url?)
-        format.html { render :new, flash[:danger] = "Tienes que seleccionar solo un tipo." }
-        format.json { render json: @post.errors, status: :unprocessable_entity }
+        render :new
 	  elsif (@post.text?) && (@post.url?)
         format.html { render :new, notice: 'Either fill in URL or Text.' }
         format.json { render json: @post.errors, status: :unprocessable_entity }
