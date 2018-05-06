@@ -4,7 +4,6 @@ Rails.application.routes.draw do
   delete 'destroy', :on => :collection
   end
   resources :posts do
-  resources :posts
 	resources :comments
   end
   resources :comments do
