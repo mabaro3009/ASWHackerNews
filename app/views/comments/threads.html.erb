@@ -1,0 +1,104 @@
+<center>
+    <table>
+        <thead>
+            <table id="hnmain" border="0" cellpadding="0" cellspacing="0" width="85%" bgcolor="#f6f6ef">
+                <tbody>
+                    <tr>
+                        <!--Cabezera -->
+                        <td bgcolor="#ff6600">
+                            <table border="0" cellpadding="0" cellspacing="0" width="100%" style="padding:2px">
+                                <tbody>
+                                    <td style="width:18px;padding-right:4px">
+                                        <a href="/../posts">
+                      <img src="https://news.ycombinator.com/y18.gif" width="18" height="18" style="border:1px white solid;">
+                    </a>
+                                    </td>
+                                    <td style="line-height:12pt; height:10px;">
+                                        <span class="pagetop">
+                      <b class="hnname">
+                        <a style="text-decoration: none;" href="/../posts">Hacker News</a>
+                      </b>
+                        <a href="newest">new</a> |
+                        
+                        <a href="ask">ask</a>
+                        <% if current_user %>
+                            |
+                            <%= link_to 'Submit ', new_post_path %>
+                        <% end %>
+                      </span>
+                                    </td>
+                                    <td style="text-align:right;padding-right:4px;">
+                                        <span class="pagetop">
+
+                        <% if current_user %>
+                              <a class="navbar-text navbar-right" href="/users/<%= current_user.id %>/edit"> <%= current_user.name %></a> |
+                               <a href="logout">logout</a>
+                        <% else %>
+                              <a href="auth/twitter">login</a>
+                        <% end%>
+                      </span>
+                                    </td>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    <!--Final Cabezera-->
+                    <tr style="height:10px"></tr>
+                    <tr>
+                        <!-- News -->
+                        <td>
+                            <table border="0" cellpadding="0" cellspacing="0" class="itemlist">
+                                <tbody>
+
+                                    <% @comments.each do |comment| %>
+                                        <!-- Una new -->
+                                        <tr class='athing' id='16898827'>
+                                            
+                                            
+                                            
+
+                                          
+
+                                            <td class="uppertext" style="color: #808080; font-size: 12px">
+                                                
+                                                <span class="user"> <%=comment.user.name%> </span>
+                                                <span class="time"> <%= time_ago_in_words(comment.created_at) %> </span> ago | 
+                                                <span class="score"> <%= comment.upvotes.count %> points </span> |
+                                                <span class="post"> on: <%= comment.post.title %> </span>
+
+                                                <% if current_user and comment.user.id == current_user.id %>
+                                            |       <%= link_to 'Delete', comment, method: :delete, data: { confirm: 'Are you sure?' } %>
+                                            <% end %>
+                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2">
+                                            </td>
+                                        </tr>   
+                                        <tr>
+                    <!--<td colspan="1">
+                    </td>-->
+                    <td class="subtext">
+                      <span class="text"><%=comment.text%></span>
+                    </td>
+                    </tr>
+                                           
+
+
+
+
+                                        <!-- no petar a partir d'aqui -->
+                                        <tr class="spacer" style="height:5px">
+                                        </tr>
+                                        <% end %>
+                                            <!-- Final de una new -->
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    <!-- Final News -->
+                </tbody>
+            </table>
+</center>

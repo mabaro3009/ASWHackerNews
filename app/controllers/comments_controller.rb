@@ -18,6 +18,13 @@ class CommentsController < ApplicationController
     @comment = Comment.new
   end
 
+  def threads
+    @comments = Comment.order(:created_at).reverse_order.all
+    #@comments = @comments.user.id(current_user.id)
+    @comments = @comments.where(:user_id => current_user.id)
+  end
+
+
   # GET /comments/1/edit
   def edit
   end

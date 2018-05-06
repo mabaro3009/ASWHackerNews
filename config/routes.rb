@@ -19,5 +19,7 @@ Rails.application.routes.draw do
   get "/reply" => "comments#reply"
   get '/auth/:provider/callback', to: 'sessions#create'
   get '/logout/', to: 'sessions#logout'
+  get "/threads" => "comments#threads"
+  
 
 end
