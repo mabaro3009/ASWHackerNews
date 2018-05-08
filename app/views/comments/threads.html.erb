@@ -66,7 +66,12 @@
                                                 <span class="user"> <%=comment.user.name%> </span>
                                                 <span class="time"> <%= time_ago_in_words(comment.created_at) %> </span> ago | 
                                                 <span class="score"> <%= comment.upvotes.count %> points </span> |
-                                                <span class="post"> on: <%= comment.post.title %> </span>
+                                                on: <a href="/posts/<%= comment.post.id%>">
+                                                    <span class="post"><%= comment.post.title %> </span>
+                                                </a>    
+
+
+
 
                                                 <% if current_user and comment.user.id == current_user.id %>
                                             |       <%= link_to 'Delete', comment, method: :delete, data: { confirm: 'Are you sure?' } %>
