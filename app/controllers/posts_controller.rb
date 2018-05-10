@@ -8,6 +8,7 @@ class PostsController < ApplicationController
 
 	@posts = @posts.tipo("url")
 	@contador = 0
+  render json: @posts
   end
 
   # GET /posts/newest
