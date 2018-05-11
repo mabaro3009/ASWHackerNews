@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   end
 
   add_swagger_route 'GET', '/api/posts', controller_name: 'posts', action_name: 'api_post'
+  add_swagger_route 'POST', '/api/create/comment/:user_id/:parent_id/:text', controller_name: 'comments', action_name: 'api_create_comment'
   add_swagger_route 'GET', '/api/ask', controller_name: 'posts', action_name: 'api_ask'
 
   #provisional

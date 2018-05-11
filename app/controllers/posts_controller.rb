@@ -24,7 +24,7 @@ class PostsController < ApplicationController
 	@posts = Post.order(sort_column_votes + " " + sort_direction)
 	@posts = @posts.tipo("ask")
   @contador = 0
-	
+
   end
 
   # GET /posts/1
@@ -51,7 +51,7 @@ class PostsController < ApplicationController
       @post_existent = Post.where(:url => post_params[:url])
       @post_2 = @post_existent.first
       redirect_to post_path(@post_2)
-      
+
     else
   @post = Post.new(post_params)
   @post.user_id = current_user.id;
@@ -83,7 +83,7 @@ class PostsController < ApplicationController
     end
     end
 
-  
+
   end
 
   # PATCH/PUT /posts/1
@@ -156,14 +156,14 @@ class PostsController < ApplicationController
     @posts = @posts.tipo("url")
     render json: @posts
   end
-  
+
   def api_ask
     @posts = Post.order(sort_column_votes + " " + sort_direction)
 	@posts = @posts.tipo("ask")
     render json: @posts
   end
-  
-  
+
+
 
 
   ##end API CALLS
