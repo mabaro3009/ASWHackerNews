@@ -39,6 +39,8 @@ paths:
       responses:
         200:
           description: "Get all Asks"
+          schema:
+            $ref: '#/definitions/Post'
       
   /comments:
       post:
@@ -64,6 +66,8 @@ paths:
         responses:
           200:
             description: Succesfully created
+            schema:
+              $ref: '#/definitions/Comment'
           400:
             description: No existe el comentario
             schema:
