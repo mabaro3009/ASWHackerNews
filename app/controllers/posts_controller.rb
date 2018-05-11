@@ -8,7 +8,7 @@ class PostsController < ApplicationController
 
 	@posts = @posts.tipo("url")
 	@contador = 0
-  render json: @posts
+
   end
 
   # GET /posts/newest
@@ -138,6 +138,16 @@ class PostsController < ApplicationController
   	end
   end
 
+  ##API CALLS
+  def api_post
+    @posts = Post.order(sort_column_votes + " " + sort_direction)
+    @posts = @posts.tipo("url")
+    render json: @posts
+  end
+
+
+  ##end API CALLS
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_post
@@ -160,5 +170,7 @@ class PostsController < ApplicationController
 	def sort_direction
 		%w[asc desc].include?(params[:direction]) ? params[:direction] : "desc"
 	end
+
+
 
 end

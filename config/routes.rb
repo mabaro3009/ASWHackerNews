@@ -6,7 +6,7 @@ Rails.application.routes.draw do
     match full_path, to: "#{opts.fetch(:controller_name)}##{opts[:action_name]}", via: http_method
   end
 
-  add_swagger_route 'GET', '/api/posts', controller_name: 'posts', action_name: 'index'
+  add_swagger_route 'GET', '/api/posts', controller_name: 'posts', action_name: 'api_post'
 
   #provisional
 
