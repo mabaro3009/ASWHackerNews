@@ -122,6 +122,7 @@ definitions:
       upvotes_count:
         type: "integer"
         format: "int64"
+        
     xml:
       name: "Post"
 
@@ -132,14 +133,37 @@ definitions:
       id:
         type: "integer"
         format: "int64"
+        
       text:
         type: "string"
+        
       votes:
         type: "integer"
         format: "int64"
+        
       parent_id:
         type: "integer"
         format: "int64"
+        
+      created_at:
+        type: "string"
+        format: "datetime"
+        
+      updated_at:
+        type: "string"
+        format: "datetime"
+        
+      post_id:
+        type: "integer"
+        format: "int64"
+        
+      user_id: 
+        type: "integer"
+        format: "int64"
+        
+      tipus:
+        type: "string"
+        
     xml:
       name: "Comment"    
         
