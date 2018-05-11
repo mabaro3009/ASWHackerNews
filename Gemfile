@@ -33,4 +33,4 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'omniauth-twitter', '~> 1.1.0'
 
-
+gem 'rack-cors', :require => 'rack/cors'
