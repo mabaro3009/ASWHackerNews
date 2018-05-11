@@ -1,10 +1,20 @@
 Rails.application.routes.draw do
 
+  ##provisional
+  def add_swagger_route http_method, path, opts = {}
+    full_path = path.gsub(/{(.*?)}/, ':\1')
+    match full_path, to: "#{opts.fetch(:controller_name)}##{opts[:action_name]}", via: http_method
+  end
+
+  add_swagger_route 'GET', '/api/posts', controller_name: 'posts', action_name: 'api_post'
+
+  #provisional
+
+
   resources :upvotes do
   delete 'destroy', :on => :collection
   end
   resources :posts do
-  resources :posts
 	resources :comments
   end
   resources :comments do
@@ -20,5 +30,7 @@ Rails.application.routes.draw do
   get "/reply" => "comments#reply"
   get '/auth/:provider/callback', to: 'sessions#create'
   get '/logout/', to: 'sessions#logout'
+  get "/threads" => "comments#threads"
+
 
 end

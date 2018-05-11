@@ -19,7 +19,12 @@
                         <a style="text-decoration: none;" href="/../posts">Hacker News</a>
                       </b>
                         <a href="newest">new</a> |
-                        
+
+                        <% if current_user %>
+                          <a href="threads">threads</a> |
+                        <% end %>
+
+
                         <a href="ask">ask</a>
 						<% if current_user %>
 							|
@@ -98,8 +103,13 @@
 												<% end %>
                         <!--fin votaciones-->
                                                 <span class="score"> | <%= post.upvotes.count %> points </span> by
+                                                <% if current_user and post.user_id == current_user.id %>
+                                                <a href="/users/<%= current_user.id %>/edit" class="hnuser">
+                                                    <%= post.user.name %>
+                                                <% else %>
                                                 <a href="users/<%=post.user_id%>" class="hnuser">
                                                     <%= post.user.name %>
+                                                <%end%>
                                                 </a>
                                                 <span class="time"> <%= time_ago_in_words(post.created_at) %> </span> ago |
                                                 <span class="comments">
