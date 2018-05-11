@@ -24,6 +24,7 @@ class PostsController < ApplicationController
 	@posts = Post.order(sort_column_votes + " " + sort_direction)
 	@posts = @posts.tipo("ask")
   @contador = 0
+	
   end
 
   # GET /posts/1
@@ -155,6 +156,14 @@ class PostsController < ApplicationController
     @posts = @posts.tipo("url")
     render json: @posts
   end
+  
+  def api_ask
+    @posts = Post.order(sort_column_votes + " " + sort_direction)
+	@posts = @posts.tipo("ask")
+    render json: @posts
+  end
+  
+  
 
 
   ##end API CALLS
