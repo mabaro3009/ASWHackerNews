@@ -103,6 +103,7 @@ class CommentsController < ApplicationController
     @post = Post.find(params[:post_id])
     @comment = @post.comments.create(params[:comment].permit(:text, :tipus))
     @comment.user_id = current_user.id
+    @comment.tipus = 'comment'
     if @comment.save
       render json: @comment, status: :ok
     else
