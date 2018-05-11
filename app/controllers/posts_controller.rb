@@ -44,24 +44,32 @@ class PostsController < ApplicationController
   # POST /posts
   # POST /posts.json
   def create
+
+
+    if Post.where(:url => post_params[:url]).exists?
+      @post_existent = Post.where(:url => post_params[:url])
+      @post_2 = @post_existent.first
+      redirect_to post_path(@post_2)
+      
+    else
   @post = Post.new(post_params)
-	@post.user_id = current_user.id;
-	@post.upvotes_count = 0;
-	if(@post.text?)
-			@post.tipo = "ask"
-		else
-			@post.tipo = "url"
-	end
+  @post.user_id = current_user.id;
+  @post.upvotes_count = 0;
+  if(@post.text?)
+      @post.tipo = "ask"
+    else
+      @post.tipo = "url"
+  end
 
 
     respond_to do |format|
-	  if (!@post.text?) && (!@post.url?)
+    if (!@post.text?) && (!@post.url?)
         #flash[:alert] = "Error creating new post!"
         #render :new
 
         format.html { render :new, notice: 'Post was successfully created.'}
         format.json { render json: @post.errors, status: :unprocessable_entity }
-	  elsif (@post.text?) && (@post.url?)
+    elsif (@post.text?) && (@post.url?)
         format.html { render :new , notice: 'Post was successfully created.'}
         format.json { render json: @post.errors, status: :unprocessable_entity }
       elsif @post.save
@@ -72,6 +80,9 @@ class PostsController < ApplicationController
         format.json { render json: @post.errors, status: :unprocessable_entity }
       end
     end
+    end
+
+  
   end
 
   # PATCH/PUT /posts/1
