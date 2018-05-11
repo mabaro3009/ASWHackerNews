@@ -1,0 +1,96 @@
+swagger: "2.0"
+info:
+  description: "This is a sample server Petstore server.  You can find out more about     Swagger at [http://swagger.io](http://swagger.io) or on [irc.freenode.net, #swagger](http://swagger.io/irc/).      For this sample, you can use the api key `special-key` to test the authorization     filters."
+  version: "1.0.0"
+  title: "Swagger Petstore"
+  termsOfService: "http://swagger.io/terms/"
+  contact:
+    email: "apiteam@swagger.io"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+host: "localhost:3000"
+basePath: "/api"
+
+tags:
+- name: "posts"
+  description: "Everything about your Pets"
+  externalDocs:
+    description: "Find out more"
+    url: "http://swagger.io"
+
+schemes:
+- "http"
+paths:
+  /posts:
+    get:
+      tags:
+      - "Index"
+      summary: "Get all the URLs"
+      description: ""
+      responses:
+        200:
+          description: "Get all URLs"
+          
+  /ask:
+    get:
+      tags:
+      - "ask"
+      summary: "Get all the Asks"
+      description: ""
+      responses:
+        200:
+          description: "Get all Asks"
+      
+    
+
+definitions:
+  Post:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+        
+      title:
+        type: "string"
+        
+      url:
+        type: "string"
+        
+      text:
+        type: "string"
+       
+      user_id:
+        type: "integer"
+        format: "int64"
+        
+      created_at:
+        type: "string"
+        format: "datetime"
+        
+      updated_at:
+        type: "string"
+        format: "datetime"
+        
+      tipo:
+        type: "string"
+
+      votes:
+        type: "integer"
+        format: "int64"
+        
+      nComments:
+        type: "integer"
+        format: "int64"
+      
+      upvotes_count:
+        type: "integer"
+        format: "int64"
+        
+    xml:
+      name: "Post"
+  
+externalDocs:
+  description: "Find out more about Swagger"
+  url: "http://swagger.io"
