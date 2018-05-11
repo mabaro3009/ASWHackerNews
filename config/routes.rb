@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   add_swagger_route 'GET', '/api/ask', controller_name: 'posts', action_name: 'api_ask'
 
   #provisional
+  
 
 
   resources :upvotes do
