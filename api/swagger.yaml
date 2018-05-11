@@ -52,14 +52,16 @@ paths:
             description: body of the comment
             required: true
             type: string
-          - name: parent_id
-            in: formData
-            description: Identificador del comentario
-            required: true
-            type: number
+            
           - name: user_id
             in: formData
             description: Identificador del usuario
+            required: true
+            type: number
+            
+          - name: post_id
+            in: formData
+            description: Identificador del post
             required: true
             type: number
           
