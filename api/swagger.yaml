@@ -1,11 +1,9 @@
 swagger: "2.0"
 info:
-  description: "This is a sample server Petstore server.  You can find out more about     Swagger at [http://swagger.io](http://swagger.io) or on [irc.freenode.net, #swagger](http://swagger.io/irc/).      For this sample, you can use the api key `special-key` to test the authorization     filters."
+  description: "HackerNews"
   version: "1.0.0"
-  title: "Swagger Petstore"
-  termsOfService: "http://swagger.io/terms/"
-  contact:
-    email: "apiteam@swagger.io"
+  title: "HackerNews"
+  termsOfService: "https://news.ycombinator.com/"
   license:
     name: "Apache 2.0"
     url: "http://www.apache.org/licenses/LICENSE-2.0.html"
@@ -14,13 +12,13 @@ basePath: "/api"
 
 tags:
 - name: "posts"
-  description: "Everything about your Pets"
-  externalDocs:
-    description: "Find out more"
-    url: "http://swagger.io"
+  description: "Publicaciones"
+- name: "comments"
+  description: "Comentarios"
 
 schemes:
 - "http"
+
 paths:
   /posts:
     get:
@@ -42,7 +40,44 @@ paths:
         200:
           description: "Get all Asks"
       
-    
+  /comments:
+      post:
+        description: |
+          Crea un nuevo comentario para un post
+        parameters:
+          - name: comment
+            in: formData
+            description: body of the comment
+            required: true
+            type: string
+          - name: parent_id
+            in: formData
+            description: Identificador del comentario
+            required: true
+            type: number
+          - name: user_id
+            in: formData
+            description: Identificador del usuario
+            required: true
+            type: number
+          
+        responses:
+          200:
+            description: Succesfully created
+          400:
+            description: No existe el comentario
+            schema:
+              type: object
+              properties:
+                error:
+                  type: string
+          401:
+            description: No autoritzat
+            schema:
+              type: object
+              properties:
+                error:
+                  type: string
 
 definitions:
   Post:
@@ -87,10 +122,27 @@ definitions:
       upvotes_count:
         type: "integer"
         format: "int64"
-        
     xml:
       name: "Post"
-  
+
+      
+  Comment:
+    type: "object"
+    properties:     
+      id:
+        type: "integer"
+        format: "int64"
+      text:
+        type: "string"
+      votes:
+        type: "integer"
+        format: "int64"
+      parent_id:
+        type: "integer"
+        format: "int64"
+    xml:
+      name: "Comment"    
+        
 externalDocs:
   description: "Find out more about Swagger"
   url: "http://swagger.io"

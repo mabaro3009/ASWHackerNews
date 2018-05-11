@@ -7,11 +7,11 @@ Rails.application.routes.draw do
   end
 
   add_swagger_route 'GET', '/api/posts', controller_name: 'posts', action_name: 'api_post'
-  add_swagger_route 'POST', '/api/create/comment/:user_id/:parent_id/:text', controller_name: 'comments', action_name: 'api_create_comment'
+  add_swagger_route 'POST', '/api/comments', controller_name: 'comments', action_name: 'api_create_comment'
   add_swagger_route 'GET', '/api/ask', controller_name: 'posts', action_name: 'api_ask'
 
   #provisional
-  
+
 
 
   resources :upvotes do
@@ -34,7 +34,7 @@ Rails.application.routes.draw do
   get '/auth/:provider/callback', to: 'sessions#create'
   get '/logout/', to: 'sessions#logout'
   get "/threads" => "comments#threads"
-  
+
 
 
 

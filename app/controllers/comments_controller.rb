@@ -100,7 +100,14 @@ class CommentsController < ApplicationController
   ##API CALLS
 
   def api_create_comment
-
+    @post = Post.find(params[:post_id])
+    @comment = @post.comments.create(params[:comment].permit(:text, :tipus))
+    @comment.user_id = current_user.id
+    if @comment.save
+      render json: @comment, status: :ok
+    else
+      render json: @comment.errors, status: :bad_request
+    end
   end
   ##end API CALLS
 
