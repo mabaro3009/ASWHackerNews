@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+  include ApplicationHelper
   protect_from_forgery prepend: true
 
   def hello
@@ -13,14 +14,15 @@ class ApplicationController < ActionController::Base
 	@current_user_id ||= session[:user_id]
   end
   def authenticate
-      if request.authorization and user = User.find_by_uid(decode(request.authorization))
-        @api_user = user
+      if request.authorization
+        @api_user = User.find_by_apiKey(request.authorization)
       else
         render_unauthorized
       end
     end
 
     def render_unauthorized
+		puts "estic aquiiiiiiiiiiiiiii"
       render json: {:error => 'Unauthorized'}.to_json, :status => 401
     end
 

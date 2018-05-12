@@ -10,7 +10,9 @@ info:
 securityDefinitions:
   Token:
     type: apiKey
-    description: Té la clau de usuari generada. Es pot extreure desde la interficie grafica de la aplicació
+    description: >-
+      Té la clau de usuari generada. Es pot extreure desde la interficie grafica
+      de la aplicació
     name: Authorization
     in: header
 host: 'localhost:3000'
@@ -21,84 +23,66 @@ tags:
   - name: comments
     description: Comentarios
 schemes:
-  - "http"
+  - http
 paths:
   /posts:
     get:
       tags:
-        - Index
+        - posts
       summary: Get all the URLs
       description: ''
       responses:
         '200':
           description: Get all URLs
-          
-  /post_create:
-    post:
+    post: 
       tags:
-        - post
-      summary: "Add a new post"
-      description: ""
-      consumes:
-      - "application/json"
-      - "application/x-www-form-urlencoded"
-      produces:
-      - "application/xml"
-      - "application/json"
-      parameters:
-      - name: "title"
-        in: "formData"
-        description: "Titol del post"
-        required: true
-        type: "string"
-      - name: "tipo"
-        in: "formData"
-        description: "Tipus del post"
-        required: true
-        type: "array"
-        items:
-          type: "string"
-          enum:
-          - "URL"
-          - "ask"
-          default: "URL"
-        collectionFormat: "multi"
-      - name: "content"
-        in: "formData"
-        description: "URL or Text"
-        required: true
-        type: "string"
-      responses:
-         405:
-          description: "Invalid input"
-  /ask:
-    get:
-      tags:
-        - ask
-      summary: Get all the Asks
-      description: ''
-      responses:
-        '200':
-          description: Get all Asks
-          schema:
-            $ref: '#/definitions/Post'
-  /comments:
-    post:
-      description: |
-        Crea un nuevo comentario para un post
+        - posts
+      summary: Crear un post
+      description: Crear un post
       security:
-            - Token: []
+         - Token: []
       parameters:
-        - name: comment
+        - name: title
           in: formData
-          description: Texto del comentario
+          description: Titulo del post    
           required: true
           type: string
-        - name: user_id
+        - name: tipo
           in: formData
-          description: Identificador del usuario
+          description: Tipo del post
           required: true
-          type: number
+          type: string
+        - name: content
+          in: formData
+          description: Tipo del post
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Succesfully created
+          schema:
+            $ref: '#/definitions/Post'
+        '400':
+          description: No existe el comentario
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+        '401':
+          description: No autoritzat
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+                
+    delete:
+      tags:
+        - posts
+      security:
+        - Token: []
+      parameters:
         - name: post_id
           in: formData
           description: Identificador del post
@@ -123,9 +107,59 @@ paths:
             properties:
               error:
                 type: string
-                
+  
+  /ask:
+    get:
+      tags:
+        - ask
+      summary: Get all the Asks
+      description: ''
+      responses:
+        '200':
+          description: Get all Asks
+          schema:
+            $ref: '#/definitions/Post'
+  /comments:
+    post:
+      description: |
+        Crea un nuevo comentario para un post
+      security:
+        - Token: []
+      parameters:
+        - name: comment
+          in: formData
+          description: Texto del comentario
+          required: true
+          type: string
+        
+        - name: post_id
+          in: formData
+          description: Identificador del post
+          required: true
+          type: number
+      responses:
+        '200':
+          description: Succesfully created
+          schema:
+            $ref: '#/definitions/Comment'
+        '400':
+          description: No existe el comentario
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+        '401':
+          description: No autoritzat
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
   /reply:
     post:
+      security:
+        - Token: []
       description: |
         Crea un nuevo reply para un comentario
       parameters:
@@ -134,11 +168,6 @@ paths:
           description: Texto del comentario
           required: true
           type: string
-        - name: user_id
-          in: formData
-          description: Identificador del usuario
-          required: true
-          type: number
         - name: post_id
           in: formData
           description: Identificador del post
@@ -168,9 +197,10 @@ paths:
             properties:
               error:
                 type: string
-  
   /deleteComment:
     delete:
+      security:
+        - Token: []
       description: |
         Crea un nuevo reply para un comentario
       parameters:
@@ -197,8 +227,7 @@ paths:
             type: object
             properties:
               error:
-                type: string              
-                
+                type: string
   /upvote:
     post:
       description: |
@@ -233,13 +262,12 @@ paths:
             properties:
               error:
                 type: string
-      
 definitions:
   Post:
     type: object
     required:
-    - "title"
-    - "tipo"
+      - title
+      - tipo
     properties:
       id:
         type: integer
@@ -305,4 +333,3 @@ definitions:
 externalDocs:
   description: Find out more about Swagger
   url: 'http://swagger.io'
-  
