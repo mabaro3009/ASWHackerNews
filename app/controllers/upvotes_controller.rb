@@ -1,6 +1,6 @@
 class UpvotesController < ApplicationController
   #before_action :set_upvote, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate, only: [:api_upvote, :api_unvote]
+  before_action :authenticate, only: [:api_upvote, :api_unvote, :api_upvote_comment, :api_unvote_comment]
 
   # GET /upvotes
   # GET /upvotes.json
@@ -48,21 +48,51 @@ class UpvotesController < ApplicationController
 end
 
 
+def api_upvote_comment
+  if Comment.where(:id => params[:comment_id]).exists?
+    if Upvote.where(:comment_id => params[:comment_id]).exists?
+      render json: @upvote.errors, status: :bad_request
+    else
+      @upvote = Upvote.new({comment_id: params['comment_id']})
+
+      @upvote.user_id = @api_user.id
+
+      if @upvote.save
+        render json: @upvote, status: :ok
+      else
+        render json: @upvote.errors, status: :bad_request
+      end
+
+    end
+
+  else
+    render json: {:error => 'no existeix el comentari'}.to_json, :status => 404
+  end
+
+end
+
+def api_unvote_comment
+  if Comment.where(:id => params[:comment_id]).exists?
+    if Upvote.where(:comment_id => params[:comment_id]).where(:user_id => @api_user.id).exists?
+      @upvote = Upvote.where(:comment_id => params[:comment_id]).where(:user_id => @api_user.id)
+      if @upvote[0].destroy
+        render json: @upvote, status: :ok
+      else
+        render json: @upvote.errors, status: :bad_request
+      end
+
+    else
+      #no es del user
+      render json: {:error => 'Unauthorized'}.to_json, :status => 401
+    end
+  else
+    #no existeix el commentari
+    render json: {:error => 'no existeix el comentari'}.to_json, :status => 404
+
+  end
 
 
-
-
-
- #   @upvote.destroy
- 
-#      if @upvote.post_id?
-
-
-
-
-
-
-
+end
 
 
 

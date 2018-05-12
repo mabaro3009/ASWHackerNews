@@ -15,7 +15,8 @@ Rails.application.routes.draw do
   add_swagger_route 'DELETE', '/api/posts', controller_name: 'posts', action_name: 'api_delete_post'
   add_swagger_route 'POST', 'api/upvote', controller_name: 'upvotes', action_name: 'api_upvote'
   add_swagger_route 'DELETE', 'api/upvote', controller_name: 'upvotes', action_name: 'api_unvote'
-
+  add_swagger_route 'POST', 'api/upvotecomment', controller_name: 'upvotes', action_name: 'api_upvote_comment'
+  add_swagger_route 'DELETE', 'api/upvotecomment', controller_name: 'upvotes', action_name: 'api_unvote'
   #provisional
 
 
