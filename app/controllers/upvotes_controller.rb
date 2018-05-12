@@ -13,6 +13,23 @@ class UpvotesController < ApplicationController
   end
 
 
+  def api_upvote
+#aixo no se si es aixi salu2
+    @post = Post.find(params[:post_id])
+    @upvote = Upvote.new(upvote_params)
+    @upvote.user_id = params[:user_id]
+
+
+#aixo esta be
+    if @upvote.save
+      render json: @upvote, status: :ok
+    else
+      render json: @upvote.errors, status: :bad_request
+    end
+
+  end
+
+
 
   # GET /upvotes/new
   def new

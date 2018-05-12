@@ -1,178 +1,181 @@
-swagger: "2.0"
+swagger: '2.0'
 info:
-  description: "HackerNews"
-  version: "1.0.0"
-  title: "HackerNews"
-  termsOfService: "https://news.ycombinator.com/"
+  description: HackerNews
+  version: 1.0.0
+  title: HackerNews
+  termsOfService: 'https://news.ycombinator.com/'
   license:
-    name: "Apache 2.0"
-    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
-host: "localhost:3000"
-basePath: "/api"
-
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+host: 'localhost:3000'
+basePath: /api
 tags:
-- name: "posts"
-  description: "Publicaciones"
-- name: "comments"
-  description: "Comentarios"
-
+  - name: posts
+    description: Publicaciones
+  - name: comments
+    description: Comentarios
 schemes:
-- "http"
-
+  - http
 paths:
   /posts:
     get:
       tags:
-      - "Index"
-      summary: "Get all the URLs"
-      description: ""
+        - Index
+      summary: Get all the URLs
+      description: ''
       responses:
-        200:
-          description: "Get all URLs"
-          
+        '200':
+          description: Get all URLs
   /ask:
     get:
       tags:
-      - "ask"
-      summary: "Get all the Asks"
-      description: ""
+        - ask
+      summary: Get all the Asks
+      description: ''
       responses:
-        200:
-          description: "Get all Asks"
+        '200':
+          description: Get all Asks
           schema:
             $ref: '#/definitions/Post'
-      
   /comments:
-      post:
-        description: |
-          Crea un nuevo comentario para un post
-        parameters:
-          - name: comment
-            in: formData
-            description: body of the comment
-            required: true
-            type: string
-            
-          - name: user_id
-            in: formData
-            description: Identificador del usuario
-            required: true
-            type: number
-            
-          - name: post_id
-            in: formData
-            description: Identificador del post
-            required: true
-            type: number
-          
-        responses:
-          200:
-            description: Succesfully created
-            schema:
-              $ref: '#/definitions/Comment'
-          400:
-            description: No existe el comentario
-            schema:
-              type: object
-              properties:
-                error:
-                  type: string
-          401:
-            description: No autoritzat
-            schema:
-              type: object
-              properties:
-                error:
-                  type: string
-
+    post:
+      description: |
+        Crea un nuevo comentario para un post
+      parameters:
+        - name: comment
+          in: formData
+          description: body of the comment
+          required: true
+          type: string
+        - name: user_id
+          in: formData
+          description: Identificador del usuario
+          required: true
+          type: number
+        - name: post_id
+          in: formData
+          description: Identificador del post
+          required: true
+          type: number
+      responses:
+        '200':
+          description: Succesfully created
+          schema:
+            $ref: '#/definitions/Comment'
+        '400':
+          description: No existe el comentario
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+        '401':
+          description: No autoritzat
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+  /upvote:
+    post:
+      description: |
+        Vota un post
+      parameters:
+        - name: user_id
+          in: formData
+          description: Identificador del usuario
+          required: true
+          type: number
+        - name: post_id
+          in: formData
+          description: Identificador del post
+          required: true
+          type: number
+      responses:
+        '200':
+          description: Succesfully upvoted
+          schema:
+            $ref: '#/definitions/upvote'
+        '400':
+          description: No existe el post
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+        '401':
+          description: No autoritzat
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+      
 definitions:
   Post:
-    type: "object"
+    type: object
     properties:
       id:
-        type: "integer"
-        format: "int64"
-        
+        type: integer
+        format: int64
       title:
-        type: "string"
-        
+        type: string
       url:
-        type: "string"
-        
+        type: string
       text:
-        type: "string"
-       
+        type: string
       user_id:
-        type: "integer"
-        format: "int64"
-        
+        type: integer
+        format: int64
       created_at:
-        type: "string"
-        format: "datetime"
-        
+        type: string
+        format: datetime
       updated_at:
-        type: "string"
-        format: "datetime"
-        
+        type: string
+        format: datetime
       tipo:
-        type: "string"
-
+        type: string
       votes:
-        type: "integer"
-        format: "int64"
-        
+        type: integer
+        format: int64
       nComments:
-        type: "integer"
-        format: "int64"
-      
+        type: integer
+        format: int64
       upvotes_count:
-        type: "integer"
-        format: "int64"
-        
+        type: integer
+        format: int64
     xml:
-      name: "Post"
-
-      
+      name: Post
   Comment:
-    type: "object"
-    properties:     
+    type: object
+    properties:
       id:
-        type: "integer"
-        format: "int64"
-        
+        type: integer
+        format: int64
       text:
-        type: "string"
-        
+        type: string
       votes:
-        type: "integer"
-        format: "int64"
-        
+        type: integer
+        format: int64
       parent_id:
-        type: "integer"
-        format: "int64"
-        
+        type: integer
+        format: int64
       created_at:
-        type: "string"
-        format: "datetime"
-        
+        type: string
+        format: datetime
       updated_at:
-        type: "string"
-        format: "datetime"
-        
+        type: string
+        format: datetime
       post_id:
-        type: "integer"
-        format: "int64"
-        
-      user_id: 
-        type: "integer"
-        format: "int64"
-        
+        type: integer
+        format: int64
+      user_id:
+        type: integer
+        format: int64
       tipus:
-        type: "string"
-        
+        type: string
     xml:
-      name: "Comment"    
-        
+      name: Comment
 externalDocs:
-  description: "Find out more about Swagger"
-  url: "http://swagger.io"
+  description: Find out more about Swagger
+  url: 'http://swagger.io'
