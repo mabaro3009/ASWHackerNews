@@ -1,7 +1,9 @@
 class CommentsController < ApplicationController
   before_action :set_comment, only: [:show, :edit, :update, :destroy]
   before_action :set_api
+  before_action :authenticate, only: [:api_create_comment, :api_create_reply, :api_delete_comment]
   #before_action :find_post
+
 
   # GET /comments
   # GET /comments.json

@@ -12,6 +12,20 @@ class ApplicationController < ActionController::Base
   def current_user_id
 	@current_user_id ||= session[:user_id]
   end
+  def authenticate
+      if request.authorization and user = User.find_by_uid(decode(request.authorization))
+        @api_user = user
+      else
+        render_unauthorized
+      end
+    end
 
+    def render_unauthorized
+      render json: {:error => 'Unauthorized'}.to_json, :status => 401
+    end
+
+    def render_not_found
+      render :json => {:error => "not-found"}.to_json, :status => 404
+    end
   helper_method :current_user
 end
