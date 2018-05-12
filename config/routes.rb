@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   add_swagger_route 'POST', '/api/comments', controller_name: 'comments', action_name: 'api_create_comment'
   add_swagger_route 'GET', '/api/ask', controller_name: 'posts', action_name: 'api_ask'
   add_swagger_route 'POST', 'api/upvote', controller_name: 'upovote', action_name: 'api_upvote'
+  add_swagger_route 'POST', '/api/post_create', controller_name: 'posts', action_name: 'api_create_post'
 
   #provisional
 

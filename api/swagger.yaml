@@ -15,7 +15,7 @@ tags:
   - name: comments
     description: Comentarios
 schemes:
-  - http
+  - "http"
 paths:
   /posts:
     get:
@@ -26,6 +26,45 @@ paths:
       responses:
         '200':
           description: Get all URLs
+          
+  /post_create:
+    post:
+      tags:
+        - post
+      summary: "Add a new post"
+      description: ""
+      consumes:
+      - "application/json"
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "title"
+        in: "formData"
+        description: "Titol del post"
+        required: true
+        type: "string"
+      - name: "tipo"
+        in: "formData"
+        description: "Tipus del post"
+        required: true
+        type: "array"
+        items:
+          type: "string"
+          enum:
+          - "URL"
+          - "ask"
+          default: "URL"
+        collectionFormat: "multi"
+      - name: "content"
+        in: "formData"
+        description: "URL or Text"
+        required: true
+        type: "string"
+      responses:
+         405:
+          description: "Invalid input"
   /ask:
     get:
       tags:
@@ -114,6 +153,9 @@ paths:
 definitions:
   Post:
     type: object
+    required:
+    - "title"
+    - "tipo"
     properties:
       id:
         type: integer
@@ -179,3 +221,4 @@ definitions:
 externalDocs:
   description: Find out more about Swagger
   url: 'http://swagger.io'
+  

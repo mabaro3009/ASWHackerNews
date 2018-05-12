@@ -1,5 +1,6 @@
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy]
+  before_action :set_api
 
   # GET /posts
   # GET /posts.json
@@ -162,6 +163,26 @@ class PostsController < ApplicationController
 	@posts = @posts.tipo("ask")
     render json: @posts
   end
+  
+  def api_create_post
+	puts 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+	@post = Post.new({title: params['title']})
+	@post.user_id = @user_api.id
+	@post.title = params[:title]
+	@post.tipo = params[:tipo]
+	
+	if @post.tipo == 'URL'
+		@post.url = params[:content]
+	else
+		@post.text = params[:content]
+	end
+	
+	if @post.save
+      render json: @post, id: @post.id
+    else
+      render json: @post.errors, status: :bad_request
+    end
+  end
 
 
 
@@ -176,7 +197,7 @@ class PostsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def post_params
-      params.require(:post).permit(:title, :url, :text, :votes)
+      params.require(:post).permit(:title, :url, :text, :votes, :content, :tipo)
     end
 
     def post_par2
@@ -189,6 +210,11 @@ class PostsController < ApplicationController
 
 	def sort_direction
 		%w[asc desc].include?(params[:direction]) ? params[:direction] : "desc"
+	end
+	
+	def set_api
+	puts 'apiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii'
+		@user_api = (User.where(:name => 'user_api')).first
 	end
 
 

@@ -16,7 +16,7 @@ module Demo
     # -- all .rb files in that directory are automatically loaded.
 	
 	
-	config.middleware.insert_before 0, Rack::Cors do
+	config.middleware.insert_before ActionDispatch::Static, Rack::Cors do
       allow do
         origins '*'
         resource '*', :headers => :any, :methods => [:get, :post, :options]
