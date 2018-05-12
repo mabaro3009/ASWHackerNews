@@ -126,7 +126,16 @@ class CommentsController < ApplicationController
     else
       render json: @comment.errors, status: :bad_request
     end
+  end
 
+  def api_delete_comment
+    @comment = Comment.find(params[:id])
+    #@comment.destroy
+    if @comment.destroy
+      render json: @comment, status: :ok
+    else
+      render json: @comment.errors, status: :bad_request
+    end
   end
   ##end API CALLS
 
