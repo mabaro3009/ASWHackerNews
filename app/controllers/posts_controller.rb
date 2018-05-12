@@ -163,20 +163,20 @@ class PostsController < ApplicationController
 	@posts = @posts.tipo("ask")
     render json: @posts
   end
-  
+
   def api_create_post
 	puts 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
 	@post = Post.new({title: params['title']})
 	@post.user_id = @user_api.id
 	@post.title = params[:title]
 	@post.tipo = params[:tipo]
-	
+
 	if @post.tipo == 'URL'
 		@post.url = params[:content]
 	else
 		@post.text = params[:content]
 	end
-	
+
 	if @post.save
       render json: @post, id: @post.id
     else
@@ -211,7 +211,7 @@ class PostsController < ApplicationController
 	def sort_direction
 		%w[asc desc].include?(params[:direction]) ? params[:direction] : "desc"
 	end
-	
+
 	def set_api
 	puts 'apiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii'
 		@user_api = (User.where(:name => 'user_api')).first

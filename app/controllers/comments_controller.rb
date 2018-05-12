@@ -112,6 +112,22 @@ class CommentsController < ApplicationController
       render json: @comment.errors, status: :bad_request
     end
   end
+
+
+  def api_create_reply
+    @comment = Comment.new({text: params['comment']})
+    @comment.parent_id = params[:parent_id]
+    @comment.user_id = params[:user_id]
+    @comment.post_id = params[:post_id]
+    @comment.tipus = 'reply'
+    @comment.save
+    if @comment.save
+      render json: @comment, status: :ok
+    else
+      render json: @comment.errors, status: :bad_request
+    end
+
+  end
   ##end API CALLS
 
   private

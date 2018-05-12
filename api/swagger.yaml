@@ -83,7 +83,7 @@ paths:
       parameters:
         - name: comment
           in: formData
-          description: body of the comment
+          description: Texto del comentario
           required: true
           type: string
         - name: user_id
@@ -94,6 +94,51 @@ paths:
         - name: post_id
           in: formData
           description: Identificador del post
+          required: true
+          type: number
+      responses:
+        '200':
+          description: Succesfully created
+          schema:
+            $ref: '#/definitions/Comment'
+        '400':
+          description: No existe el comentario
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+        '401':
+          description: No autoritzat
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+                
+  /reply:
+    post:
+      description: |
+        Crea un nuevo reply para un comentario
+      parameters:
+        - name: comment
+          in: formData
+          description: Texto del comentario
+          required: true
+          type: string
+        - name: user_id
+          in: formData
+          description: Identificador del usuario
+          required: true
+          type: number
+        - name: post_id
+          in: formData
+          description: Identificador del post
+          required: true
+          type: number
+        - name: parent_id
+          in: formData
+          description: Identificador del comentario que cuelga
           required: true
           type: number
       responses:
@@ -134,7 +179,7 @@ paths:
         '200':
           description: Succesfully upvoted
           schema:
-            $ref: '#/definitions/upvote'
+            $ref: '#/definitions/up_vote'
         '400':
           description: No existe el post
           schema:
