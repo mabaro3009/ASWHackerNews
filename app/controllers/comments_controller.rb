@@ -1,5 +1,6 @@
 class CommentsController < ApplicationController
   before_action :set_comment, only: [:show, :edit, :update, :destroy]
+  before_action :set_api
   #before_action :find_post
 
   # GET /comments
@@ -32,7 +33,7 @@ class CommentsController < ApplicationController
   # POST /comments
   # POST /comments.json
   def create
-          if(params[:comment][:tipus] == 'comment')
+        if(params[:comment][:tipus] == 'comment')
       		@post = Post.find(params[:post_id])
       		@comment = @post.comments.create(params[:comment].permit(:text, :tipus))
       	else
@@ -100,10 +101,11 @@ class CommentsController < ApplicationController
   ##API CALLS
 
   def api_create_comment
-    @post = Post.find(params[:post_id])
-    @comment = @post.comments.create(params[:comment].permit(:text, :tipus))
-    @comment.user_id = current_user.id
+    @comment = Comment.new({text: params['comment']})
+    @comment.user_id = params[:user_id]
+    @comment.post_id = params[:post_id]
     @comment.tipus = 'comment'
+    @comment.save
     if @comment.save
       render json: @comment, status: :ok
     else
@@ -122,7 +124,10 @@ class CommentsController < ApplicationController
     def comment_params
       params.require(:comment).permit(:text, :user_id, :votes, :parent_id)
     end
-
+    def set_api
+    puts 'apiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii'
+      @user_api = (User.where(:name => 'user_api')).first
+    end
 	def find_post
 		@post = Post.find(params[:post_id])
 	end
