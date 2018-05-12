@@ -7,6 +7,12 @@ info:
   license:
     name: Apache 2.0
     url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+securityDefinitions:
+  Token:
+    type: apiKey
+    description: Té la clau de usuari generada. Es pot extreure desde la interficie grafica de la aplicació
+    name: Authorization
+    in: header
 host: 'localhost:3000'
 basePath: /api
 tags:
@@ -80,6 +86,8 @@ paths:
     post:
       description: |
         Crea un nuevo comentario para un post
+      security:
+            - Token: []
       parameters:
         - name: comment
           in: formData
