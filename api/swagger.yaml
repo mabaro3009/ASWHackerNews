@@ -34,17 +34,17 @@ paths:
       responses:
         '200':
           description: Get all URLs
-    post: 
+    post:
       tags:
         - posts
       summary: Crear un post
       description: Crear un post
       security:
-         - Token: []
+        - Token: []
       parameters:
         - name: title
           in: formData
-          description: Titulo del post    
+          description: Titulo del post
           required: true
           type: string
         - name: tipo
@@ -76,7 +76,6 @@ paths:
             properties:
               error:
                 type: string
-                
     delete:
       tags:
         - posts
@@ -107,7 +106,6 @@ paths:
             properties:
               error:
                 type: string
-  
   /ask:
     get:
       tags:
@@ -131,7 +129,6 @@ paths:
           description: Texto del comentario
           required: true
           type: string
-        
         - name: post_id
           in: formData
           description: Identificador del post
@@ -230,14 +227,13 @@ paths:
                 type: string
   /upvote:
     post:
-      description: |
-        Vota un post
+      tags:
+        - votes
+      summary: Votar un post
+      description: Votar un post
+      security:
+        - Token: []
       parameters:
-        - name: user_id
-          in: formData
-          description: Identificador del usuario
-          required: true
-          type: number
         - name: post_id
           in: formData
           description: Identificador del post
@@ -245,9 +241,9 @@ paths:
           type: number
       responses:
         '200':
-          description: Succesfully upvoted
+          description: Succesfully created
           schema:
-            $ref: '#/definitions/up_vote'
+            $ref: '#/definitions/Upvote'
         '400':
           description: No existe el post
           schema:
@@ -255,8 +251,33 @@ paths:
             properties:
               error:
                 type: string
-        '401':
-          description: No autoritzat
+    delete:
+      tags:
+        - votes
+      summary: Desfer el vot
+      description: Desfer el vot
+      security:
+        - Token: []
+      parameters:
+        - name: post_id
+          in: formData
+          description: Identificador del post
+          required: true
+          type: number
+      responses:
+        '200':
+          description: Succesfully created
+          schema:
+            $ref: '#/definitions/Upvote'
+        '400':
+          description: No existe el post
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+        '404':
+          description: No existe el voto
           schema:
             type: object
             properties:
@@ -330,6 +351,20 @@ definitions:
         type: string
     xml:
       name: Comment
+  Upvote:
+    type: object
+    properties:
+      id:
+        type: integer
+        format: int64
+      post_id:
+        type: integer
+        format: int64
+      user_id:
+        type: integer
+        format: int64
+      xml:
+        name: Upvote
 externalDocs:
   description: Find out more about Swagger
   url: 'http://swagger.io'
