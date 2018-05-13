@@ -33,7 +33,7 @@
                                         <span class="pagetop">
 
                         <% if current_user %>
-                              <a class="navbar-text navbar-right" href="/users/<%= current_user.id %>/edit"> <%= current_user.name %></a> |
+                              <a class="navbar-text navbar-right" href="/users/<%= current_user.id %>"> <%= current_user.name %> (<%= current_user.karma %>) </a> |
                                <a href="logout">logout</a>
                         <% else %>
                               <a href="auth/twitter">login</a>
