@@ -112,13 +112,15 @@ end
   # POST /upvotes.json
   def create
   @upvote = Upvote.new(upvote_params)
-	@upvote.user_id = current_user.id
-  if @upvote.comment_id.exists?
-    @comment = Comment.find(@upvote.comment_id)
+  @upvote.user_id = current_user.id
+  if @upvote.comment_id?
+	@comment = Comment.find(@upvote.comment_id)
     @user = User.find(@comment.user_id)
+    
   else
-  @post = Post.find(@upvote.post_id)
-  @user = User.find(@post.user_id)
+	@post = Post.find(@upvote.post_id)
+	@user = User.find(@post.user_id)
+	
   end
   @user.update_attribute(:karma, @user.karma + 1)
 
@@ -155,12 +157,13 @@ end
   # DELETE /upvotes/1.json
   def destroy
 	@upvote = Upvote.find(params[:upvote])
-  if @upvote.comment_id.exists?
-    @comment = Comment.find(@upvote.comment_id)
+  if @upvote.comment_id?
+	@comment = Comment.find(@upvote.comment_id)
     @user = User.find(@comment.user_id)
+    
   else
-  @post = Post.find(@upvote.post_id)
-  @user = User.find(@post.user_id)
+	@post = Post.find(@upvote.post_id)
+	@user = User.find(@post.user_id)
   end
   @user.update_attribute(:karma, @user.karma - 1)
     @upvote.destroy
