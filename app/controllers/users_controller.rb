@@ -61,6 +61,13 @@ class UsersController < ApplicationController
     end
   end
 
+  def api_get_user
+    #GET USER
+    @user = User.find(params[:id])
+    render json: @user
+  end
+  ##end API CALLS
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
