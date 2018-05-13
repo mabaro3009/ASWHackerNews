@@ -26,7 +26,7 @@ paths:
       responses:
         '200':
           description: Get all URLs
-          
+
   /post_create:
     post:
       tags:
@@ -115,7 +115,7 @@ paths:
             properties:
               error:
                 type: string
-                
+
   /reply:
     post:
       description: |
@@ -194,7 +194,7 @@ paths:
             properties:
               error:
                 type: string
-      
+
 definitions:
   Post:
     type: object
@@ -266,4 +266,3 @@ definitions:
 externalDocs:
   description: Find out more about Swagger
   url: 'http://swagger.io'
-  
