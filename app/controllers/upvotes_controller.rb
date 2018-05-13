@@ -15,16 +15,15 @@ class UpvotesController < ApplicationController
 
 
   def api_upvote
-#aixo no se si es aixi salu2
-    #@post = Post.find(params[:post_id])
     if Upvote.where(:post_id => params[:post_id]).where(:user_id => @api_user.id).exists? #&& :user_id => @api_user.id)
       render json: {:error => 'Unauthorized'}.to_json, :status => 401
     else
       @upvote = Upvote.new({post_id: params['post_id']})
       @upvote.user_id = @api_user.id
+	  @post = Post.find(@upvote.post_id)
+      @api_user.update_attribute(:karma, @api_user.karma + 1)
 
 
-  #aixo esta be
       if @upvote.save
         render json: @upvote, status: :ok
       else
@@ -36,7 +35,9 @@ class UpvotesController < ApplicationController
   def api_unvote
     if Upvote.where(:post_id => params[:post_id]).where(:user_id => @api_user.id).exists?
       @upvote = Upvote.where(:post_id => params[:post_id]).where(:user_id => @api_user.id)
+	  @post = Post.find(@upvote.post_id)
       if @upvote[0].destroy
+		@api_user.update_attribute(:karma, @api_user.karma - 1)
         render json: @upvote, status: :ok
       else
         render json: @upvote.errors, status: :bad_request
