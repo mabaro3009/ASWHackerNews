@@ -55,10 +55,10 @@ def api_upvote_comment
       render json: @upvote.errors, status: :bad_request
     else
       @upvote = Upvote.new({comment_id: params['comment_id']})
-
       @upvote.user_id = @api_user.id
-	  @post = Post.find(@upvote.post_id)
-      @api_user.update_attribute(:karma, @api_user.karma + 1)
+	  @comment = Comment.find(@upvote.comment_id)
+	  @user = User.find(@comment.user_id)
+      @user.update_attribute(:karma, @user.karma + 1)
 
       if @upvote.save
         render json: @upvote, status: :ok
@@ -78,9 +78,10 @@ def api_unvote_comment
   if Comment.where(:id => params[:comment_id]).exists?
     if Upvote.where(:comment_id => params[:comment_id]).where(:user_id => @api_user.id).exists?
       @upvote = Upvote.where(:comment_id => params[:comment_id]).where(:user_id => @api_user.id)
-      @post = Post.find(@upvote.post_id)
+      @comment = Comment.find(@upvote.comment_id)
+	  @user = User.find(@comment.user_id)
 	  if @upvote[0].destroy
-		@api_user.update_attribute(:karma, @api_user.karma + 1)
+		@user.update_attribute(:karma, @user.karma - 1)
         render json: @upvote, status: :ok
       else
         render json: @upvote.errors, status: :bad_request
