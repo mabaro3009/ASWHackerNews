@@ -78,7 +78,7 @@ def api_unvote_comment
   if Comment.where(:id => params[:comment_id]).exists?
     if Upvote.where(:comment_id => params[:comment_id]).where(:user_id => @api_user.id).exists?
       @upvote = Upvote.where(:comment_id => params[:comment_id]).where(:user_id => @api_user.id)
-      @comment = Comment.find(@upvote.comment_id)
+      @comment = Comment.find(@upvote[0].comment_id)
 	  @user = User.find(@comment.user_id)
 	  if @upvote[0].destroy
 		@user.update_attribute(:karma, @user.karma - 1)
