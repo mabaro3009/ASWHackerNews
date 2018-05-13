@@ -113,6 +113,9 @@ end
   def create
   @upvote = Upvote.new(upvote_params)
 	@upvote.user_id = current_user.id
+  @post = Post.find(@upvote.post_id)
+  @user = User.find(@post.user_id)
+  @user.karma += 1
 
     respond_to do |format|
       if @upvote.save

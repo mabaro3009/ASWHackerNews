@@ -19,7 +19,7 @@ Rails.application.routes.draw do
   add_swagger_route 'DELETE', 'api/upvotecomment', controller_name: 'upvotes', action_name: 'api_unvote'
   add_swagger_route 'GET', '/api/posts/:id', controller_name: 'posts', action_name: 'api_post_find_by_id'
   add_swagger_route 'GET', '/api/users/:id', controller_name: 'users', action_name: 'api_get_user'
-  add_swagger_route 'GET', '/api/users', controller_name: 'users', action_name: 'api_post_user'
+  add_swagger_route 'GET', '/api/users', controller_name: 'users', action_name: 'api_post_user  '
   #provisional
 
 

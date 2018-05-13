@@ -23,7 +23,7 @@
                         <% end %>
 
 
-                        <a href=/../ask>ask</a> 
+                        <a href=/../ask>ask</a>
 						<% if current_user %>
 							|
 							<%= link_to 'Submit ', new_post_path %>
@@ -32,9 +32,9 @@
                     </td>
                     <td style="text-align:right;padding-right:4px;">
                       <span class="pagetop">
-                        
+
 						<% if current_user %>
-						<a class="navbar-text navbar-right"> signed in as <%= current_user.name %></a> | 
+						<a class="navbar-text navbar-right" href="/users/<%= current_user.id %>"> <%= current_user.name %> (<%= current_user.karma %>)</a> | 
 						<a href="/logout">logout</a>
 						<% else %>
 						<a href="/../auth/twitter">login</a>
@@ -62,14 +62,14 @@
 								<% if @post.tipo == 'url' %>
 								<a href="http://<%= @post.url %>" class="storylink"><%= @post.title %></a>
 								<span class="sitebit comhead"> (
-                       
+
 								<span class="sitestr"><%= @post.url %></span>
 									)
 								</span>
 								<% else %>
 								<span class="text Title"> Ask HN: </span>
 								<span class="textT"><%= @post.title %></span>
-								
+
 							    <% end%>
 							</td>
 						</tr>
@@ -98,7 +98,7 @@
                         <!--fin votaciones-->
                       <span class="score"> <%= @post.upvotes.count %> points </span> by
                       <a href="/../users/<%=@post.user_id%>" class="hnuser"><%= @post.user.name %></a>
-                      <span class="time"> <%= time_ago_in_words(@post.created_at) %> </span> ago | 
+                      <span class="time"> <%= time_ago_in_words(@post.created_at) %> </span> ago |
                       <span class="comments">
                         <a href="<%=@post.id%>"><%= @post.comments.count %> comments</a>
                       </span>
@@ -116,13 +116,13 @@
 						<% end %>
 					</td>
 					</tr>
-					
+
 					<%if current_user %>
 						<tr>
 						<td colspan="1">
 						</td>
 						<td class="formcomment">
-							<%= render 'comments/form' %>						
+							<%= render 'comments/form' %>
 						</td>
 						</tr>
 					<% end %>
@@ -132,15 +132,15 @@
 					<td colspan="1">
                     </td>
 					<td class="comments">
-						<%= render 'comments/comment' %>						
+						<%= render 'comments/comment' %>
 					</td>
 					</tr>
-					
-				
-                  
+
+
+
                   <tr class="spacer" style="height:5px">
                   </tr>
-				  
+
                   <!-- Final de la new -->
 					</tbody>
 				</table>
