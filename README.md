@@ -6,4 +6,4 @@
 * Daniel Tarrés
 
 
-https://sleepy-plateau-35854.herokuapp.com/
+https://asw-hacker-news.herokuapp.com/
