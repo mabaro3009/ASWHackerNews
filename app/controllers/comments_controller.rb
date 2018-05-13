@@ -23,7 +23,9 @@ class CommentsController < ApplicationController
 
   def threads
     @comments = Comment.order(:created_at).reverse_order.all
-    @comments = @comments.where(:user_id => current_user.id)
+	@user = (User.where(:name => params[:user])).first
+	#puts @user.name
+    @comments = @comments.where(:user_id => @user.id)
   end
 
 

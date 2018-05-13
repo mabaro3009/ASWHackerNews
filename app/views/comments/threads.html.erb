@@ -20,7 +20,7 @@
                       </b>
                         <a href="newest">new</a> |
                         <% if current_user %>
-                          <a href="threads">threads</a> |
+                          <%= link_to 'threads', threads_path(:user => current_user.name) %> |
                         <% end %>
                         <a href="ask">ask</a>
                         <% if current_user %>
@@ -54,7 +54,7 @@
 
                                     <% @comments.each do |comment| %>
                                         <!-- Una new -->
-                                        <tr class='athing' id='16898827'>
+                                        <tr >
                                             
                                             
                                             
@@ -71,7 +71,7 @@
                                                 </a>    
 
 
-
+				
 
                                                 <% if current_user and comment.user.id == current_user.id %>
                                             |       <%= link_to 'Delete', comment, method: :delete, data: { confirm: 'Are you sure?' } %>

@@ -20,7 +20,7 @@
                       </b>
                         <a href="newest">new</a> |
                         <% if current_user %>
-                          <a href="threads">threads</a> |
+                          <%= link_to 'threads', threads_path(:user => current_user.name) %> |
                         <% end %>
                         <a href="ask">ask</a>
 						<% if current_user %>
