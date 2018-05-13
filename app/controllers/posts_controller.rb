@@ -48,7 +48,7 @@ class PostsController < ApplicationController
   def create
 
 
-    if Post.where(:url => post_params[:url]).exists?
+    if post_params[:text] == "" and Post.where(:url => post_params[:url]).exists?
       @post_existent = Post.where(:url => post_params[:url])
       @post_2 = @post_existent.first
       redirect_to post_path(@post_2)
