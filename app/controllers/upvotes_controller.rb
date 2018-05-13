@@ -115,7 +115,7 @@ end
 	@upvote.user_id = current_user.id
   @post = Post.find(@upvote.post_id)
   @user = User.find(@post.user_id)
-  @user.karma += 1
+  @user.update_attribute(:karma, @user.karma + 1)
 
     respond_to do |format|
       if @upvote.save
@@ -150,6 +150,9 @@ end
   # DELETE /upvotes/1.json
   def destroy
 	@upvote = Upvote.find(params[:upvote])
+  @post = Post.find(@upvote.post_id)
+  @user = User.find(@post.user_id)
+  @user.update_attribute(:karma, @user.karma - 1)
     @upvote.destroy
     respond_to do |format|
       if @upvote.post_id?
