@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy]
-  before_action :set_api
+  before_action :authenticate, only: [:api_create_post, :api_delete_post]
 
   # GET /posts
   # GET /posts.json
@@ -165,25 +165,42 @@ class PostsController < ApplicationController
   end
 
   def api_create_post
-	puts 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-	@post = Post.new({title: params['title']})
-	@post.user_id = @user_api.id
-	@post.title = params[:title]
-	@post.tipo = params[:tipo]
-
-	if @post.tipo == 'URL'
-		@post.url = params[:content]
+	if Post.where(:url => params[:content]).exists?
+		render json: @post.errors, status: :bad_request
 	else
-		@post.text = params[:content]
-	end
+		@post = Post.new({title: params['title']})
+		@post.user_id = @api_user.id
+		@post.tipo = params[:tipo]
+		@post.upvotes_count = 0;
 
-	if @post.save
-      render json: @post, id: @post.id
-    else
-      render json: @post.errors, status: :bad_request
-    end
+		if @post.tipo == 'url'
+			@post.url = params[:content]
+		elsif @post.tipo == 'ask'
+			@post.text = params[:content]
+		else
+			render json: @comment.errors, status: :bad_request
+		end
+
+		if @post.save
+		  render json: @post, status: :ok
+		else
+		  render json: @post.errors, status: :bad_request
+		end
+	end
   end
 
+  def api_delete_post
+	@post = Post.find(params[:post_id])
+	if @post.user_id = @api_user.id
+		if @post.destroy
+		render json: @post, status: :ok
+		else
+		render json: @post.errors, status: :bad_request
+		end
+	else
+		render json: {:error => 'Unauthorized'}.to_json, :status => 401
+	end
+  end
 
 
 
@@ -212,10 +229,7 @@ class PostsController < ApplicationController
 		%w[asc desc].include?(params[:direction]) ? params[:direction] : "desc"
 	end
 
-	def set_api
-	puts 'apiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii'
-		@user_api = (User.where(:name => 'user_api')).first
-	end
+	
 
 
 

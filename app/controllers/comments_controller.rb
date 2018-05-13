@@ -1,7 +1,9 @@
 class CommentsController < ApplicationController
   before_action :set_comment, only: [:show, :edit, :update, :destroy]
   before_action :set_api
+  before_action :authenticate, only: [:api_create_comment, :api_create_reply, :api_delete_comment]
   #before_action :find_post
+
 
   # GET /comments
   # GET /comments.json
@@ -102,7 +104,7 @@ class CommentsController < ApplicationController
 
   def api_create_comment
     @comment = Comment.new({text: params['comment']})
-    @comment.user_id = params[:user_id]
+    @comment.user_id = @api_user.id
     @comment.post_id = params[:post_id]
     @comment.tipus = 'comment'
     @comment.save
@@ -117,7 +119,7 @@ class CommentsController < ApplicationController
   def api_create_reply
     @comment = Comment.new({text: params['comment']})
     @comment.parent_id = params[:parent_id]
-    @comment.user_id = params[:user_id]
+    @comment.user_id = @api_user.id
     @comment.post_id = params[:post_id]
     @comment.tipus = 'reply'
     @comment.save
@@ -126,7 +128,20 @@ class CommentsController < ApplicationController
     else
       render json: @comment.errors, status: :bad_request
     end
+  end
 
+  def api_delete_comment
+    @comment = Comment.find(params[:id])
+	if @comment.user_id = @api_user.id
+    #@comment.destroy
+		if @comment.destroy
+		render json: @comment, status: :ok
+		else
+		render json: @comment.errors, status: :bad_request
+		end
+	else
+		render json: {:error => 'Unauthorized'}.to_json, :status => 401
+	end
   end
   ##end API CALLS
 
