@@ -201,6 +201,11 @@ class PostsController < ApplicationController
 		render json: {:error => 'Unauthorized'}.to_json, :status => 401
 	end
   end
+  
+  def api_post_find_by_id
+	@post = Post.find(params[:id])
+	render json: @post
+  end
 
 
 

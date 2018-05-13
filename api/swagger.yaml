@@ -39,6 +39,10 @@ paths:
         - posts
       summary: Crear un post
       description: Crear un post
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
       security:
         - Token: []
       parameters:
@@ -79,6 +83,10 @@ paths:
     delete:
       tags:
         - posts
+      consumes:
+       - "application/x-www-form-urlencoded"
+      produces:
+        - "application/json"
       security:
         - Token: []
       parameters:
@@ -106,10 +114,34 @@ paths:
             properties:
               error:
                 type: string
+  /posts/{post_id}:
+    get:
+      tags:
+      - "posts"
+      summary: "Find post by ID"
+      description: "Returns a single post"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "post_id"
+        in: "path"
+        description: "ID of post to return"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Post"
+        400:
+          description: "Invalid ID supplied"
+        404:
+          description: "Post not found"
   /ask:
     get:
       tags:
-        - ask
+        - posts
       summary: Get all the Asks
       description: ''
       responses:
@@ -119,8 +151,14 @@ paths:
             $ref: '#/definitions/Post'
   /comments:
     post:
+      tags:
+      - "comments"
       description: |
         Crea un nuevo comentario para un post
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
       security:
         - Token: []
       parameters:
@@ -155,6 +193,12 @@ paths:
                 type: string
   /reply:
     post:
+      tags:
+      - "comments"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
       security:
         - Token: []
       description: |
@@ -196,6 +240,12 @@ paths:
                 type: string
   /deleteComment:
     delete:
+      tags:
+      - "comments"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
       security:
         - Token: []
       description: |
@@ -231,6 +281,10 @@ paths:
         - votes
       summary: Votar un post
       description: Votar un post
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
       security:
         - Token: []
       parameters:
@@ -256,6 +310,10 @@ paths:
         - votes
       summary: Desfer el vot
       description: Desfer el vot
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
       security:
         - Token: []
       parameters:
@@ -363,8 +421,8 @@ definitions:
       user_id:
         type: integer
         format: int64
-      xml:
-        name: Upvote
+    xml:
+     name: Upvote
 externalDocs:
   description: Find out more about Swagger
-url: 'http://swagger.io'
+  url: 'http://swagger.io'
