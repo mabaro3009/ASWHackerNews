@@ -146,8 +146,9 @@ class CommentsController < ApplicationController
   end
   
   def api_threads
+	@user = User.find(params[:id])
 	@comments = Comment.order(:created_at).reverse_order.all
-    @comments = @comments.where(:user_id => @api_user.id)
+    @comments = @comments.where(:user_id => @user.id)
 	render json: @comments, status: :ok
   end
   
