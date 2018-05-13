@@ -66,6 +66,11 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     render json: @user
   end
+  def api_post_user
+    #GET USER
+    @user = User.new(user_params)
+    render json: @user
+  end
   ##end API CALLS
 
   private
