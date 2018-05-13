@@ -133,7 +133,7 @@ class CommentsController < ApplicationController
 
   def api_delete_comment
     @comment = Comment.find(params[:id])
-	if @comment.user_id = @api_user.id
+	if @comment.user_id == @api_user.id
     #@comment.destroy
 		if @comment.destroy
 		render json: @comment, status: :ok

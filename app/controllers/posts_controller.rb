@@ -191,7 +191,7 @@ class PostsController < ApplicationController
 
   def api_delete_post
 	@post = Post.find(params[:post_id])
-	if @post.user_id = @api_user.id
+	if @post.user_id == @api_user.id
 		if @post.destroy
 		render json: @post, status: :ok
 		else
