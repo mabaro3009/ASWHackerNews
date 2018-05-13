@@ -15,7 +15,7 @@ securityDefinitions:
       de la aplicació
     name: Authorization
     in: header
-host: 'localhost:3000'
+host: 'asw-hacker-news.herokuapp.com'
 basePath: /api
 tags:
   - name: posts
@@ -23,7 +23,7 @@ tags:
   - name: comments
     description: Comentarios
 schemes:
-  - http
+  - https
 paths:
   /posts:
     get:
@@ -160,7 +160,7 @@ paths:
           description: Get all Asks
           schema:
             $ref: '#/definitions/Post'
-  /threads/{user_id}:
+  '/threads/{user_id}':
     get:
       tags:
         - comments
@@ -373,6 +373,75 @@ paths:
             properties:
               error:
                 type: string
+                
+                
+  /upvotecomment:
+    post:
+      tags:
+        - votes
+      summary: Votar un comment
+      description: Votar un comment
+      consumes:
+        - application/x-www-form-urlencoded
+      produces:
+        - application/json
+      security:
+        - Token: []
+      parameters:
+        - name: comment_id
+          in: formData
+          description: Identificador del comment
+          required: true
+          type: number
+      responses:
+        '200':
+          description: Succesfully created
+          schema:
+            $ref: '#/definitions/Upvote'
+        '400':
+          description: No existe el comment
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+    delete:
+      tags:
+        - votes
+      summary: Desfer el vot
+      description: Desfer el vot
+      consumes:
+        - application/x-www-form-urlencoded
+      produces:
+        - application/json
+      security:
+        - Token: []
+      parameters:
+        - name: comment_id
+          in: formData
+          description: Identificador del comment
+          required: true
+          type: number
+      responses:
+        '200':
+          description: Succesfully created
+          schema:
+            $ref: '#/definitions/Upvote'
+        '400':
+          description: No existe el comment
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+        '404':
+          description: No existe el voto
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+                
   /users:
     put:
       tags:
@@ -397,7 +466,7 @@ paths:
           description: Pet not found
         '405':
           description: Validation exception
-  /users/{user_id}:
+  '/users/{user_id}':
     get:
       tags:
         - users
