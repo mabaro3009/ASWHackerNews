@@ -21,7 +21,8 @@ class UpvotesController < ApplicationController
       @upvote = Upvote.new({post_id: params['post_id']})
       @upvote.user_id = @api_user.id
 	  @post = Post.find(@upvote.post_id)
-      @api_user.update_attribute(:karma, @api_user.karma + 1)
+	  @user = User.find(@post.user_id)
+      @user.update_attribute(:karma, @user.karma + 1)
 
 
       if @upvote.save
@@ -37,7 +38,8 @@ class UpvotesController < ApplicationController
       @upvote = Upvote.where(:post_id => params[:post_id]).where(:user_id => @api_user.id)
 	  @post = Post.find(@upvote[0].post_id)
       if @upvote[0].destroy
-		@api_user.update_attribute(:karma, @api_user.karma - 1)
+		@user = User.find(@post.user_id)
+		@user.update_attribute(:karma, @user.karma - 1)
         render json: @upvote, status: :ok
       else
         render json: @upvote.errors, status: :bad_request
