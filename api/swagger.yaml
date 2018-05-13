@@ -22,8 +22,6 @@ tags:
     description: Publicaciones
   - name: comments
     description: Comentarios
-  - name: Users
-    description: Usuarios
 schemes:
   - http
 paths:
@@ -42,9 +40,9 @@ paths:
       summary: Crear un post
       description: Crear un post
       consumes:
-        - application/x-www-form-urlencoded
+      - "application/x-www-form-urlencoded"
       produces:
-        - application/json
+      - "application/json"
       security:
         - Token: []
       parameters:
@@ -86,9 +84,9 @@ paths:
       tags:
         - posts
       consumes:
-        - application/x-www-form-urlencoded
+       - "application/x-www-form-urlencoded"
       produces:
-        - application/json
+        - "application/json"
       security:
         - Token: []
       parameters:
@@ -116,30 +114,30 @@ paths:
             properties:
               error:
                 type: string
-  '/posts/{post_id}':
+  /posts/{post_id}:
     get:
       tags:
-        - posts
-      summary: Find post by ID
-      description: Returns a single post
+      - "posts"
+      summary: "Find post by ID"
+      description: "Returns a single post"
       produces:
-        - application/json
+      - "application/json"
       parameters:
-        - name: post_id
-          in: path
-          description: ID of post to return
-          required: true
-          type: integer
-          format: int64
+      - name: "post_id"
+        in: "path"
+        description: "ID of post to return"
+        required: true
+        type: "integer"
+        format: "int64"
       responses:
-        '200':
-          description: successful operation
+        200:
+          description: "successful operation"
           schema:
-            $ref: '#/definitions/Post'
-        '400':
-          description: Invalid ID supplied
-        '404':
-          description: Post not found
+            $ref: "#/definitions/Post"
+        400:
+          description: "Invalid ID supplied"
+        404:
+          description: "Post not found"
   /ask:
     get:
       tags:
@@ -151,16 +149,42 @@ paths:
           description: Get all Asks
           schema:
             $ref: '#/definitions/Post'
+            
+  /newest:
+    get:
+      tags:
+        - posts
+      summary: Get all the posts sorted by date
+      description: ''
+      responses:
+        '200':
+          description: Get all Asks
+          schema:
+            $ref: '#/definitions/Post'
+            
+  /threads:
+    get:
+      tags:
+        - comments
+      security:
+        - Token: []
+      summary: Get all comments from user
+      responses:
+        '200':
+          description: Get all comments
+          schema:
+            $ref: '#/definitions/Comment'
+            
   /comments:
     post:
       tags:
-        - comments
+      - "comments"
       description: |
         Crea un nuevo comentario para un post
       consumes:
-        - application/x-www-form-urlencoded
+      - "application/x-www-form-urlencoded"
       produces:
-        - application/json
+      - "application/json"
       security:
         - Token: []
       parameters:
@@ -196,11 +220,11 @@ paths:
   /reply:
     post:
       tags:
-        - comments
+      - "comments"
       consumes:
-        - application/x-www-form-urlencoded
+      - "application/x-www-form-urlencoded"
       produces:
-        - application/json
+      - "application/json"
       security:
         - Token: []
       description: |
@@ -243,11 +267,11 @@ paths:
   /deleteComment:
     delete:
       tags:
-        - comments
+      - "comments"
       consumes:
-        - application/x-www-form-urlencoded
+      - "application/x-www-form-urlencoded"
       produces:
-        - application/json
+      - "application/json"
       security:
         - Token: []
       description: |
@@ -284,9 +308,9 @@ paths:
       summary: Votar un post
       description: Votar un post
       consumes:
-        - application/x-www-form-urlencoded
+      - "application/x-www-form-urlencoded"
       produces:
-        - application/json
+      - "application/json"
       security:
         - Token: []
       parameters:
@@ -313,9 +337,9 @@ paths:
       summary: Desfer el vot
       description: Desfer el vot
       consumes:
-        - application/x-www-form-urlencoded
+      - "application/x-www-form-urlencoded"
       produces:
-        - application/json
+      - "application/json"
       security:
         - Token: []
       parameters:
@@ -345,69 +369,58 @@ paths:
                 type: string
                 
   /users:
-    post:
+    put:
       tags:
-        -  Users
-      summary: Crear un User 
-      description: Metodo post para crear un usuario nuevo
+      - users
+      summary: "edit current user"
       consumes:
-        - application/x-www-form-urlencoded
+      - "application/x-www-form-urlencoded"
       produces:
-        - application/json
+      - "application/json"
+      security:
+        - Token: []
       parameters:
-        - name: post_id
+        - name: about
           in: formData
-          description: Identificador del post
+          description: about del usuario
           required: true
-          type: number
+          type: string
       responses:
-        '200':
-          description: Succesfully created
-          schema:
-            $ref: '#/definitions/Upvote'
-        '400':
-          description: No existe el post
-          schema:
-            type: object
-            properties:
-              error:
-                type: string
-        '404':
-          description: No existe el voto
-          schema:
-            type: object
-            properties:
-              error:
-                type: string
+        400:
+          description: "Invalid ID supplied"
+        404:
+          description: "Pet not found"
+        405:
+          description: "Validation exception"
                 
-  '/users/{id}':
+  /users/{user_id}:
     get:
       tags:
-        -  Users
-      summary: Busca el usuario de la id pasada
-      description: Metodo GET que a partir de la id pasada te devuelve su informacion
-      consumes:
-        - application/x-www-form-urlencoded
+      - "users"
+      summary: "Find user by ID"
+      description: "Returns a single user"
       produces:
-        - application/json
+      - "application/json"
       parameters:
-        - name: id
-          in: path
-          description: ID of User to return
-          required: true
-          type: integer
-          format: int64
+      - name: "user_id"
+        in: "path"
+        description: "ID of user to return"
+        required: true
+        type: "integer"
+        format: "int64"
       responses:
-        '200':
-          description: successful operation
+        200:
+          description: "successful operation"
           schema:
-            $ref: '#/definitions/Users
-        '400':
-          description: Invalid ID supplied
-        '404':
-          description: Post not found
-      
+            $ref: "#/definitions/User"
+        400:
+          description: "Invalid ID supplied"
+        404:
+          description: "User not found"
   
+                
+
+                
 definitions:
   Post:
     type: object
@@ -489,35 +502,22 @@ definitions:
         type: integer
         format: int64
     xml:
-      name: Upvote
-  Users:
+     name: Upvote
+  User:
     type: object
     properties:
-      provider:
-        type: string
-      uid:
+      id:
         type: integer
         format: int64
       name:
         type: string
-      token:
-        type: string
-      secret:
-        type: string
-      profile_image:
-        type: string
-      created_at:
-        type: string
-        format: datetime
-      updated_at:
-        type: string
-        format: datetime
       about:
         type: string
-      apiKey:
-        type: string
+
     xml:
-      name: USers
+      name: User
+
+
 externalDocs:
   description: Find out more about Swagger
   url: 'http://swagger.io'

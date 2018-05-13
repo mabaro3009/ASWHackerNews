@@ -1,7 +1,7 @@
 class CommentsController < ApplicationController
   before_action :set_comment, only: [:show, :edit, :update, :destroy]
-  before_action :set_api
-  before_action :authenticate, only: [:api_create_comment, :api_create_reply, :api_delete_comment]
+
+  before_action :authenticate, only: [:api_create_comment, :api_create_reply, :api_delete_comment, :api_threads]
   #before_action :find_post
 
 
@@ -23,7 +23,6 @@ class CommentsController < ApplicationController
 
   def threads
     @comments = Comment.order(:created_at).reverse_order.all
-    #@comments = @comments.user.id(current_user.id)
     @comments = @comments.where(:user_id => current_user.id)
   end
 
@@ -143,6 +142,13 @@ class CommentsController < ApplicationController
 		render json: {:error => 'Unauthorized'}.to_json, :status => 401
 	end
   end
+  
+  def api_threads
+	@comments = Comment.order(:created_at).reverse_order.all
+    @comments = @comments.where(:user_id => @api_user.id)
+	render json: @comments, status: :ok
+  end
+  
   ##end API CALLS
 
   private
@@ -155,10 +161,7 @@ class CommentsController < ApplicationController
     def comment_params
       params.require(:comment).permit(:text, :user_id, :votes, :parent_id)
     end
-    def set_api
-    puts 'apiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii'
-      @user_api = (User.where(:name => 'user_api')).first
-    end
+    
 	def find_post
 		@post = Post.find(params[:post_id])
 	end

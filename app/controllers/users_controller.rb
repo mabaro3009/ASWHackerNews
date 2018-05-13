@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
-
+  before_action :authenticate, only: [:api_edit_user]
   # GET /users
   # GET /users.json
   def index
@@ -65,13 +65,25 @@ class UsersController < ApplicationController
   def api_get_user
     #GET USER
     @user = User.find(params[:id])
-    render json: @user
+	
+    render :json => @user.as_json(:only => [:id, :name, :about, :karma]), status: :ok
   end
-  def api_post_user
+  
+  #def api_post_user
     #GET USER
-    @user = User.new(user_params)
-    render json: @user
+   # @user = User.new(user_params)
+   # render json: @user
+   #end
+   
+  def api_edit_user
+	@user = User.find(@api_user.id)
+	if @user.update_attribute(:about, params[:about])
+		render json: @user, status: :ok
+	else
+		render json: @user.errors, status: :bad_request
+	end
   end
+  
   ##end API CALLS
 
   private

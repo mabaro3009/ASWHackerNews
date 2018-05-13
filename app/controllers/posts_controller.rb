@@ -206,6 +206,11 @@ class PostsController < ApplicationController
 	@post = Post.find(params[:id])
 	render json: @post
   end
+  
+  def api_newest
+    @posts = Post.order(:created_at).reverse_order.all
+    render json: @posts, status: :ok
+  end
 
 
 
