@@ -15,7 +15,7 @@ securityDefinitions:
       de la aplicació
     name: Authorization
     in: header
-host: 'asw-hacker-news.herokuapp.com'
+host: asw-hacker-news.herokuapp.com
 basePath: /api
 tags:
   - name: posts
@@ -138,6 +138,32 @@ paths:
           description: Invalid ID supplied
         '404':
           description: Post not found
+        
+  '/api/posts/upvote/user/:id':
+    get:
+        tags:
+          - posts
+        summary: Find posts by uvote user ID
+        description: Returns a single post
+        produces:
+          - application/json
+        parameters:
+          - name: id
+            in: path
+            description: ID of user
+            required: true
+            type: integer
+            format: int64
+        responses:
+          '200':
+            description: successful operation
+            schema:
+              $ref: '#/definitions/Post'
+          '400':
+            description: Invalid ID supplied
+          '404':
+            description: Post not found
+    
   /ask:
     get:
       tags:
@@ -373,8 +399,6 @@ paths:
             properties:
               error:
                 type: string
-                
-                
   /upvotecomment:
     post:
       tags:
@@ -441,7 +465,6 @@ paths:
             properties:
               error:
                 type: string
-                
   /users:
     put:
       tags:
