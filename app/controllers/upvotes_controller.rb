@@ -102,6 +102,12 @@ def api_unvote_comment
 
 end
 
+def api_get_post_by_vote
+
+  @posts  = Upvotes.where(user_id: params[:id] , comment_id: nil )
+
+end
+
 
 
 
@@ -124,11 +130,11 @@ end
   if @upvote.comment_id?
 	@comment = Comment.find(@upvote.comment_id)
     @user = User.find(@comment.user_id)
-    
+
   else
 	@post = Post.find(@upvote.post_id)
 	@user = User.find(@post.user_id)
-	
+
   end
   @user.update_attribute(:karma, @user.karma + 1)
 
@@ -168,7 +174,7 @@ end
   if @upvote.comment_id?
 	@comment = Comment.find(@upvote.comment_id)
     @user = User.find(@comment.user_id)
-    
+
   else
 	@post = Post.find(@upvote.post_id)
 	@user = User.find(@post.user_id)
