@@ -138,8 +138,8 @@ paths:
           description: Invalid ID supplied
         '404':
           description: Post not found
-        
-  '/api/posts/upvote/user/:id':
+
+  '/api/posts/upvote/user/{id}':
     get:
         tags:
           - posts
@@ -163,7 +163,7 @@ paths:
             description: Invalid ID supplied
           '404':
             description: Post not found
-    
+
   /ask:
     get:
       tags:

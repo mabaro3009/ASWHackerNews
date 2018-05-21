@@ -104,8 +104,14 @@ end
 
 def api_get_post_by_vote
 
-  @posts  = Upvotes.where(user_id: params[:id] , comment_id: nil )
-
+  @upvotes  = Upvote.where(user_id: params[:id] )
+  @posts = []
+  for @upvote in @upvotes
+    if @upvote.comment_id.nil?
+    @posts << Post.find(@upvote.post_id)
+    end
+  end
+  render json: @posts, status: :ok
 end
 
 
