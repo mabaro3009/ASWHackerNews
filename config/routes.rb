@@ -27,6 +27,7 @@ Rails.application.routes.draw do
   add_swagger_route 'GET', '/api/comments/upvote/:user_id', controller_name: 'upvotes', action_name: 'api_get_comments_by_vote'
   add_swagger_route 'GET', '/api/comments/:id', controller_name: 'comments', action_name: 'api_get_comment'
   add_swagger_route 'GET', '/api/comments/post/:post_id', controller_name: 'comments', action_name: 'api_get_comment_from_post'
+  add_swagger_route 'GET', '/api/posts/user/:use_id', controller_name: 'posts', action_name: 'api_get_posts_by_user'
   #provisional
 
 

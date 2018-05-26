@@ -213,7 +213,7 @@ class PostsController < ApplicationController
   end
 
   def api_get_posts_by_user
-    @posts = Post.where(:user_id => params[:id])
+    @posts = Post.where(:user_id => params[:user_id])
     render json: @posts, status: :ok
   end
 
