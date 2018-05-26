@@ -144,14 +144,21 @@ class CommentsController < ApplicationController
 		render json: {:error => 'Unauthorized'}.to_json, :status => 401
 	end
   end
-  
+
   def api_threads
 	@user = User.find(params[:id])
 	@comments = Comment.order(:created_at).reverse_order.all
     @comments = @comments.where(:user_id => @user.id)
 	render json: @comments, status: :ok
   end
-  
+  def api_get_comment
+    if Comment.find(params[:id])
+      @comment = Comment.find(params[:id])
+      render json: @comment, status :ok
+    else
+      render json: {:error => 'Unauthorized'}.to_json, :status => 401
+    end
+  end
   ##end API CALLS
 
   private
@@ -164,7 +171,7 @@ class CommentsController < ApplicationController
     def comment_params
       params.require(:comment).permit(:text, :user_id, :votes, :parent_id)
     end
-    
+
 	def find_post
 		@post = Post.find(params[:post_id])
 	end
