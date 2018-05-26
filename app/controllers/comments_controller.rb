@@ -152,12 +152,12 @@ class CommentsController < ApplicationController
 	render json: @comments, status: :ok
   end
   def api_get_comment
-    if Comment.find(params[:id])
+    #if Comment.find(params[:id])
       @comment = Comment.find(params[:id])
       render json: @comment, status :ok
-    else
-      render json: {:error => 'Unauthorized'}.to_json, :status => 401
-    end
+    #else
+    #  render json: {:error => 'Unauthorized'}.to_json, :status => 401
+    #end
   end
   ##end API CALLS
 
