@@ -114,6 +114,18 @@ def api_get_post_by_vote
   render json: @posts, status: :ok
 end
 
+def api_get_comments_by_vote
+
+  @upvotes  = Upvote.where(user_id: params[:user_id] )
+  @comments = []
+  for @upvote in @upvotes
+    if @upvote.comment_id?
+    @comments << Comment.find(@upvote.comment_id)
+    end
+  end
+  render json: @comments, status: :ok
+end
+
 
 
 

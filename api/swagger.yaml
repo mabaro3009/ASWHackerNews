@@ -207,6 +207,25 @@ paths:
           description: Get all comments
           schema:
             $ref: '#/definitions/Comment'
+  /comments/upvote/{user_id}:
+    get:
+      tags:
+        - comments
+      summary: Get all comments upvoted by a user
+      produces:
+        - application/json
+      parameters:
+        - name: user_id
+          in: path
+          description: ID of post to return
+          required: true
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: Get all comments
+          schema:
+            $ref: '#/definitions/Comment'
   /comments:
     post:
       tags:
