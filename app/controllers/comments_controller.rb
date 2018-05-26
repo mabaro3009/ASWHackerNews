@@ -158,8 +158,8 @@ class CommentsController < ApplicationController
   end
 
   def api_get_comment_from_post
-    
-
+    @comments = Comments.find(params[:post_id])
+    render json: @comment, status: :ok
 
   end
   ##end API CALLS
