@@ -225,6 +225,29 @@ paths:
           description: Get a comment
           schema:
             $ref: '#/definitions/Comment'          
+  
+  '/comments/post/{post_id}':
+    get:
+      tags:
+        - comments
+      summary: Get comments from a post
+      produces:
+        - application/json
+      parameters:
+        - name: post_id
+          in: path
+          description: ID of post to return
+          required: true
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: Get comments from a post
+          schema:
+            $ref: '#/definitions/Comment'
+  
+  
+  
             
             
   '/comments/upvote/{user_id}':

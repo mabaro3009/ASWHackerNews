@@ -201,18 +201,21 @@ class PostsController < ApplicationController
 		render json: {:error => 'Unauthorized'}.to_json, :status => 401
 	end
   end
-  
+
   def api_post_find_by_id
 	@post = Post.find(params[:id])
 	render json: @post
   end
-  
+
   def api_newest
     @posts = Post.order(:created_at).reverse_order.all
     render json: @posts, status: :ok
   end
 
-
+  def api_get_posts_by_user
+    @posts = Post.where(:user_id => params[:id])
+    render json: @posts, status: :ok
+  end
 
   ##end API CALLS
 
@@ -239,7 +242,7 @@ class PostsController < ApplicationController
 		%w[asc desc].include?(params[:direction]) ? params[:direction] : "desc"
 	end
 
-	
+
 
 
 
