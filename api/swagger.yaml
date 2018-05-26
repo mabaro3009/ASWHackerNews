@@ -138,8 +138,6 @@ paths:
           description: Invalid ID supplied
         '404':
           description: Post not found
-          
-          
   '/api/posts/upvote/user/{id}':
     get:
       tags:
@@ -207,6 +205,28 @@ paths:
           description: Get all comments
           schema:
             $ref: '#/definitions/Comment'
+            
+  '/comments/{comment_id}':
+    get:
+      tags:
+        - comments
+      summary: Get a comment
+      produces:
+        - application/json
+      parameters:
+        - name: comment_id
+          in: path
+          description: ID of post to return
+          required: true
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: Get a comment
+          schema:
+            $ref: '#/definitions/Comment'          
+            
+            
   '/comments/upvote/{user_id}':
     get:
       tags:
