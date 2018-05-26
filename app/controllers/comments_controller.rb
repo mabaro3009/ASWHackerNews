@@ -152,6 +152,10 @@ class CommentsController < ApplicationController
 	render json: @comments, status: :ok
   end
 
+  def api_get_comment
+
+
+  end
   ##end API CALLS
 
   private
