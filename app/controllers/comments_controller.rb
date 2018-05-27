@@ -146,8 +146,8 @@ class CommentsController < ApplicationController
 	if @comment.user_id == @api_user.id
     #@comment.destroy
 		@post = Post.find(@comment.post_id)
-		@post.update_attribute(:nComments, @post.comments.count)
 		if @comment.destroy
+		@post.update_attribute(:nComments, @post.comments.count)
 		render json: @comment, status: :ok
 		else
 		render json: @comment.errors, status: :bad_request
