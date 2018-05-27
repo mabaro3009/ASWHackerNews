@@ -109,7 +109,7 @@
                                                 </a>
                                                 <span class="time"> <%= time_ago_in_words(post.created_at) %> </span> ago |
                                                 <span class="comments">
-                        <a href="posts/<%=post.id%>"><%= post.comments.count %> comments</a>
+                        <a href="posts/<%=post.id%>"><%= post.nComments %> comments</a>
                       </span>
 											<% if current_user and post.user.id == current_user.id %>
 											| <%= link_to 'Delete', post, method: :delete, data: { confirm: 'Are you sure?' } %>

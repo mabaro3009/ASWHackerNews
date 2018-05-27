@@ -37,7 +37,7 @@ class CommentsController < ApplicationController
   # POST /comments.json
   def create
         if(params[:comment][:tipus] == 'comment')
-      		@post = Post.find(params[:post_id])
+			@post = Post.find(params[:post_id])
       		@comment = @post.comments.create(params[:comment].permit(:text, :tipus))
       	else
       		@parent = Comment.find(params[:comment][:parent_id])
@@ -46,7 +46,9 @@ class CommentsController < ApplicationController
       		@parent.replies << @comment
       		@comment.tipus = 'reply'
       		@comment.post_id = @parent.post.id
+			@post = Post.find(@comment.post_id)
       	end
+		@post.update_attribute(:nComments, @post.nComments + 1)
       	@comment.user_id = current_user.id
 
       	@comment.save
@@ -95,7 +97,10 @@ class CommentsController < ApplicationController
   # DELETE /comments/1
   # DELETE /comments/1.json
   def destroy
+	@post = Post.find(@comment.post_id)
+	
     @comment.destroy
+	@post.update_attribute(:nComments, @post.comments.count)
     respond_to do |format|
       format.html { redirect_to @comment.post, notice: 'Comment was successfully destroyed.' }
       format.json { head :no_content }
@@ -106,7 +111,10 @@ class CommentsController < ApplicationController
   def api_create_comment
     @comment = Comment.new({text: params['comment']})
     @comment.user_id = @api_user.id
+
     @comment.post_id = params[:post_id]
+	@post = Post.find(@comment.post_id)
+	@post.update_attribute(:nComments, @post.nComments + 1)
     @comment.tipus = 'comment'
     @comment.save
     if @comment.save
@@ -122,6 +130,8 @@ class CommentsController < ApplicationController
     @comment.parent_id = params[:parent_id]
     @comment.user_id = @api_user.id
     @comment.post_id = params[:post_id]
+	@post = Post.find(@comment.post_id)
+	@post.update_attribute(:nComments, @post.nComments + 1)
     @comment.tipus = 'reply'
     @comment.save
     if @comment.save
@@ -135,6 +145,8 @@ class CommentsController < ApplicationController
     @comment = Comment.find(params[:id])
 	if @comment.user_id == @api_user.id
     #@comment.destroy
+		@post = Post.find(@comment.post_id)
+		@post.update_attribute(:nComments, @post.comments.count)
 		if @comment.destroy
 		render json: @comment, status: :ok
 		else
