@@ -174,6 +174,11 @@ class CommentsController < ApplicationController
     render json: @comments, status: :ok
 
   end
+
+  def api_get_replies_from_parentComment
+    @comments = Comment.where(:parent_id => params[:id], :tipus => 'reply')
+    render json: @comments, status: :ok
+  end
   ##end API CALLS
 
   private

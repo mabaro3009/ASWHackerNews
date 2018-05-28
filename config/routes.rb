@@ -28,6 +28,7 @@ Rails.application.routes.draw do
   add_swagger_route 'GET', '/api/comments/:id', controller_name: 'comments', action_name: 'api_get_comment'
   add_swagger_route 'GET', '/api/comments/post/:post_id', controller_name: 'comments', action_name: 'api_get_comment_from_post'
   add_swagger_route 'GET', '/api/posts/user/:user_id', controller_name: 'posts', action_name: 'api_get_posts_by_user'
+  add_swagger_route 'GET', '/api/replies/:id', controller_name: 'comments', action_name: 'api_get_replies_from_parentComment'
   #provisional
 
 
