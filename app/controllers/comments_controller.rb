@@ -98,7 +98,7 @@ class CommentsController < ApplicationController
   # DELETE /comments/1.json
   def destroy
 	@post = Post.find(@comment.post_id)
-	
+
     @comment.destroy
 	@post.update_attribute(:nComments, @post.comments.count)
     respond_to do |format|
@@ -170,7 +170,7 @@ class CommentsController < ApplicationController
   end
 
   def api_get_comment_from_post
-    @comments = Comment.where(:post_id => params[:post_id])
+    @comments = Comment.where(:post_id => params[:post_id] && :tipus => 'comment')
     render json: @comments, status: :ok
 
   end
