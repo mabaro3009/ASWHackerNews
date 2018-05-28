@@ -15,7 +15,7 @@ class UsersController < ApplicationController
   # GET /users/new
   def new
     @user = User.new
-    @user.karma = 0;
+    @user.karma = 314;
   end
 
   # GET /users/1/edit
@@ -24,9 +24,10 @@ class UsersController < ApplicationController
 
   # POST /users
   # POST /users.json
+  
   def create
     @user = User.new(user_params)
-    @user.apiKey = Digest::SHA1.hexdigest(Time.now.to_s + rand(12341234).to_s)[1..10]
+   
     respond_to do |format|
       if @user.save
         format.html { redirect_to @user, notice: 'User was successfully created.' }
@@ -37,7 +38,6 @@ class UsersController < ApplicationController
       end
     end
   end
-
   # PATCH/PUT /users/1
   # PATCH/PUT /users/1.json
   def update
