@@ -15,7 +15,7 @@ class ApplicationController < ActionController::Base
   end
   def authenticate
       if request.authorization
-        @api_user = User.find_by_apiKey(request.authorization)
+        @api_user = User.find_by_token(request.authorization)
       else
         render_unauthorized
       end
