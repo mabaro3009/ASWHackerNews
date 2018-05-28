@@ -11,7 +11,7 @@ require "digest/sha1"
 			profile_image: auth_hash.info.image,
 			token: auth_hash.credentials.token,
 			secret: auth_hash.credentials.secret,
-			apiKey: Digest::SHA1.hexdigest(Time.now.to_s + rand(12341234).to_s)[1..10]
+			#apiKey: Digest::SHA1.hexdigest(Time.now.to_s + rand(12341234).to_s)[1..10]
 			)
 		user
 	end
