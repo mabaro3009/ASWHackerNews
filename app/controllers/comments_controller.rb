@@ -170,7 +170,7 @@ class CommentsController < ApplicationController
   end
 
   def api_get_comment_from_post
-    @comments = Comment.where(:post_id => params[:post_id])
+    @comments = Comment.where(:post_id => params[:post_id], :tipus => 'comment')
     render json: @comments, status: :ok
 
   end
