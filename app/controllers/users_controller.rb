@@ -86,9 +86,9 @@ class UsersController < ApplicationController
 
   def api_get_user_by_token
     #GET USER
-    @user = User.find(params[:token])
+    @user = (User.where(:token => params[:token])).first
 
-    render :json => @user.as_json(:only => [:id, :name, :about, :karma, :token]), status: :ok
+    render :json => @user, status: :ok
 
   end
 
