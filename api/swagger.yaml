@@ -267,7 +267,6 @@ paths:
           description: Get comments from a post
           schema:
             $ref: '#/definitions/Comment'
-            
   '/replies/{parent_id}':
     get:
       tags:
@@ -286,9 +285,7 @@ paths:
         '200':
           description: Get replies from a comment
           schema:
-            $ref: '#/definitions/Comment'          
-            
-            
+            $ref: '#/definitions/Comment'
   '/comments/upvote/{user_id}':
     get:
       tags:

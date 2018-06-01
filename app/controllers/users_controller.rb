@@ -24,10 +24,10 @@ class UsersController < ApplicationController
 
   # POST /users
   # POST /users.json
-  
+
   def create
     @user = User.new(user_params)
-   
+
     respond_to do |format|
       if @user.save
         format.html { redirect_to @user, notice: 'User was successfully created.' }
@@ -65,16 +65,16 @@ class UsersController < ApplicationController
   def api_get_user
     #GET USER
     @user = User.find(params[:id])
-	
+
     render :json => @user.as_json(:only => [:id, :name, :about, :karma]), status: :ok
   end
-  
+
   #def api_post_user
     #GET USER
    # @user = User.new(user_params)
    # render json: @user
    #end
-   
+
   def api_edit_user
 	@user = User.find(@api_user.id)
 	if @user.update_attribute(:about, params[:about])
@@ -83,7 +83,15 @@ class UsersController < ApplicationController
 		render json: @user.errors, status: :bad_request
 	end
   end
-  
+
+  def api_get_user_by_token
+    #GET USER
+    @user = User.find(params[:token])
+
+    render :json => @user.as_json(:only => [:id, :name, :about, :karma, :token]), status: :ok
+
+  end
+
   ##end API CALLS
 
   private
