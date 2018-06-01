@@ -23,7 +23,7 @@ Rails.application.routes.draw do
   add_swagger_route 'GET', '/api/newest', controller_name: 'posts', action_name: 'api_newest'
   add_swagger_route 'GET', '/api/threads/:id', controller_name: 'comments', action_name: 'api_threads'
   add_swagger_route 'PUT', '/api/users', controller_name: 'users', action_name: 'api_edit_user'
-  add_swagger_route 'GET', '/api/userByToken', controller_name: 'users', action_name: 'api_get_user_by_token'
+  add_swagger_route 'GET', '/api/userByToken/:token', controller_name: 'users', action_name: 'api_get_user_by_token'
   add_swagger_route 'GET', '/api/posts/upvote/user/:id', controller_name: 'upvotes', action_name: 'api_get_post_by_vote'
   add_swagger_route 'GET', '/api/comments/upvote/:user_id', controller_name: 'upvotes', action_name: 'api_get_comments_by_vote'
   add_swagger_route 'GET', '/api/comments/:id', controller_name: 'comments', action_name: 'api_get_comment'

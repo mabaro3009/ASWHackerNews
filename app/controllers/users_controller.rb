@@ -88,7 +88,7 @@ class UsersController < ApplicationController
     #GET USER
     @user = User.find(:token => params[:token])
 
-    render json:  @user.as_json(:only => [:id, :name, :about,:token]), status: :ok
+    render json:  @user.as_json(:only => [:id, :name, :token, :about]), status: :ok
 
   end
 
