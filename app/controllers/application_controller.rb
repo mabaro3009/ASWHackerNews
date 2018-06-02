@@ -14,6 +14,7 @@ class ApplicationController < ActionController::Base
 	@current_user_id ||= session[:user_id]
   end
   def authenticate
+  puts request.authorization
       if request.authorization
         @api_user = User.find_by_token(request.authorization)
       else
