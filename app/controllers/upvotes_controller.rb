@@ -75,9 +75,11 @@ def api_upvote_comment
     else
       @upvote = Upvote.new({comment_id: params['comment_id']})
       @upvote.user_id = @api_user.id
+
 	  @comment = Comment.find(@upvote.comment_id)
+    @comment.update_attribute(:votes, @comment.votes + 1)
 	  @user = User.find(@comment.user_id)
-      @user.update_attribute(:karma, @user.karma + 1)
+    @user.update_attribute(:karma, @user.karma + 1)
 
       if @upvote.save
         render json: @upvote, status: :ok
@@ -98,9 +100,11 @@ def api_unvote_comment
     if Upvote.where(:comment_id => params[:comment_id]).where(:user_id => @api_user.id).exists?
       @upvote = Upvote.where(:comment_id => params[:comment_id]).where(:user_id => @api_user.id)
       @comment = Comment.find(@upvote[0].comment_id)
+      @comment.update_attribute(:votes, @comment.votes - 1)
 	  @user = User.find(@comment.user_id)
 	  if @upvote[0].destroy
 		@user.update_attribute(:karma, @user.karma - 1)
+
         render json: @upvote, status: :ok
       else
         render json: @upvote.errors, status: :bad_request
@@ -165,12 +169,13 @@ end
   if @upvote.comment_id?
 	@comment = Comment.find(@upvote.comment_id)
     @user = User.find(@comment.user_id)
-
+    @comment.update_attribute(:votes, @comment.votes + 1)
   else
 	@post = Post.find(@upvote.post_id)
 	@user = User.find(@post.user_id)
 
   end
+
   @user.update_attribute(:karma, @user.karma + 1)
 
     respond_to do |format|
@@ -193,6 +198,7 @@ end
   def update
     respond_to do |format|
       if @upvote.update(upvote_params)
+
         format.html { redirect_to @upvote, notice: 'Upvote was successfully updated.' }
         format.json { render :show, status: :ok, location: @upvote }
       else
@@ -209,7 +215,7 @@ end
   if @upvote.comment_id?
 	@comment = Comment.find(@upvote.comment_id)
     @user = User.find(@comment.user_id)
-
+    @comment.update_attribute(:votes, @comment.votes - 1)
   else
 	@post = Post.find(@upvote.post_id)
 	@user = User.find(@post.user_id)
