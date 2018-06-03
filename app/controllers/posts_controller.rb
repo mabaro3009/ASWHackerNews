@@ -166,7 +166,8 @@ class PostsController < ApplicationController
 
   def api_create_post
 	if Post.where(:url => params[:content]).exists?
-		render json: @post.errors, status: :bad_request
+		@post = (Post.where(:url => params[:content])).first
+		render json: @post, status: :found
 	else
 		@post = Post.new({title: params['title']})
 		@post.user_id = @api_user.id
