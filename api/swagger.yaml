@@ -15,7 +15,7 @@ securityDefinitions:
       de la aplicació
     name: Authorization
     in: header
-host: asw-hacker-news.herokuapp.com
+host: localhost:3000
 basePath: /api
 tags:
   - name: posts
@@ -23,7 +23,7 @@ tags:
   - name: comments
     description: Comentarios
 schemes:
-  - https
+  - http
 paths:
   /posts:
     get:
@@ -497,6 +497,27 @@ paths:
             properties:
               error:
                 type: string
+  '/upvotes/{post_id}':
+    get:
+      tags:
+        - votes
+      summary: Get if the post is upvoted
+      security:
+        - Token: []
+      produces:
+        - application/json
+      parameters:
+        - name: post_id
+          in: path
+          description: ID of post to return
+          required: true
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: Get if post is upvoted
+          schema:
+            $ref: '#/definitions/Upvote'
   /upvotecomment:
     post:
       tags:
@@ -563,6 +584,27 @@ paths:
             properties:
               error:
                 type: string
+  '/upvotecomment/{comment_id}':
+    get:
+      tags:
+        - votes
+      summary: Get if the comment is upvoted
+      security:
+        - Token: []
+      produces:
+        - application/json
+      parameters:
+        - name: comment_id
+          in: path
+          description: ID of post to return
+          required: true
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: Get if post is upvoted
+          schema:
+            $ref: '#/definitions/Upvote'
   /users:
     put:
       tags:
@@ -611,8 +653,6 @@ paths:
           description: Invalid ID supplied
         '404':
           description: User not found
-          
-          
   '/userByToken/{token}':
     get:
       tags:
