@@ -1,6 +1,6 @@
 class UpvotesController < ApplicationController
   #before_action :set_upvote, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate, only: [:api_upvote, :api_unvote, :api_upvote_comment, :api_unvote_comment]
+  before_action :authenticate, only: [:api_upvote, :api_unvote, :api_upvote_comment, :api_unvote_comment, :api_is_upvoted, :api_comment_is_upvoted]
 
   # GET /upvotes
   # GET /upvotes.json
@@ -36,19 +36,36 @@ class UpvotesController < ApplicationController
   def api_unvote
     if Upvote.where(:post_id => params[:post_id]).where(:user_id => @api_user.id).exists?
       @upvote = Upvote.where(:post_id => params[:post_id]).where(:user_id => @api_user.id)
-	  @post = Post.find(@upvote[0].post_id)
+      @post = Post.find(@upvote[0].post_id)
       if @upvote[0].destroy
-		@user = User.find(@post.user_id)
-		@user.update_attribute(:karma, @user.karma - 1)
+		    @user = User.find(@post.user_id)
+		    @user.update_attribute(:karma, @user.karma - 1)
         render json: @upvote, status: :ok
       else
         render json: @upvote.errors, status: :bad_request
       end
-
     else
       render json: {:error => 'no votat'}.to_json, :status => 404
   end
 end
+
+
+def api_is_upvoted
+  if Upvote.where(:post_id => params[:post_id]).where(:user_id => @api_user.id).exists?
+    render :json => "true"
+  else
+    render :json => "false"
+  end
+end
+
+def api_comment_is_upvoted
+  if Upvote.where(:comment_id => params[:comment_id]).where(:user_id => @api_user.id).exists?
+    render :json => "true"
+  else
+    render :json => "false"
+  end
+end
+
 
 
 def api_upvote_comment
